@@ -3,7 +3,7 @@ import config from '@payload-config'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { Link } from '@/i18n/routing'
 import { notFound } from 'next/navigation'
-import { waLink, mailLink } from '@/lib/site'
+import { waLink, mailLink, parseCoords } from '@/lib/site'
 
 type Media = { url?: string; sizes?: { card?: { url?: string }; hero?: { url?: string } } }
 
@@ -36,6 +36,10 @@ export default async function PropertyDetailPage({
   const mainImg = images[0]?.sizes?.hero?.url || images[0]?.url
   const thumbs = images.slice(1, 4)
   const isSold = property.status === 'sold'
+  const mapCoords = property.googleEarthLink ? parseCoords(property.googleEarthLink) : null
+  const mapEmbedUrl = mapCoords
+    ? `https://maps.google.com/maps?q=${mapCoords.lat},${mapCoords.lng}&z=15&output=embed`
+    : null
   const tagLabel = property.propertyType === 'land' ? 'Land · For Sale' : 'House · For Sale'
 
   const wa = waLink(
@@ -131,6 +135,17 @@ export default async function PropertyDetailPage({
           {property.googleEarthLink && (property.propertyType === 'land' || property.propertyType === 'commercial') && (
             <div className="prop-earth">
               <h2 className="prop-section-head">{t('viewOnEarth')}</h2>
+              {mapEmbedUrl && (
+                <div className="prop-map">
+                  <iframe
+                    src={mapEmbedUrl}
+                    allowFullScreen
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    title="Property location map"
+                  />
+                </div>
+              )}
               <p className="prop-earth-desc">{t('viewOnEarthDesc')}</p>
               <a href={property.googleEarthLink} target="_blank" rel="noopener" className="prop-earth-btn">
                 <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
