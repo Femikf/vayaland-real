@@ -58,7 +58,7 @@ Used for all property listings that appear in the Gallery page (Houses for Sale,
 | Description | Textarea | Bilingual. Shown on the property detail page |
 | Specs | Repeating list | Bilingual. e.g. `4 Beds`, `2400 sqft`, `2 Baths` — add as many as needed |
 | Images | Image upload | Multiple images allowed. First image is used as the gallery card thumbnail |
-| Google Earth Link | URL | Only for Land / Commercial. Paste a Google Earth or Google Maps satellite URL so buyers can view the plot from above |
+| Google Earth Link | URL | Only for Land / Commercial. Paste the **full** Google Earth or Google Maps URL (not a short `goo.gl` link) so the map preview works on the property page |
 | Show on homepage | Checkbox | Tick to feature this property in the Featured Listings section on the homepage |
 
 **How the tabs work:**
@@ -232,4 +232,5 @@ Every image slot on the website has a **fixed shape** (its aspect ratio). Your u
 - **Sold properties:** Change Status to `Sold` on any property to move it to the Sold tab. The price will show with a strikethrough on the detail page.
 - **Slide order:** If two slides have the same Order number, they appear in the order they were created.
 - **Google Earth link:** Go to earth.google.com or Google Maps, navigate to the land location, switch to Satellite view, and copy the URL from the browser address bar. Paste it into the Google Earth Link field.
+  - **Important — do not use short links:** If someone shares the location as a short link (e.g. `maps.app.goo.gl/abc123`), open that link in your browser first. The address bar will then show the full URL. Copy that full URL and paste it into the field. Short links do not contain coordinates so the map preview will not appear on the property page.
 - **Malayalam fallback:** If any field is left empty in Malayalam, the English text will show instead. Always fill both languages for complete bilingual support.
