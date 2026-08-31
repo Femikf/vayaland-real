@@ -134,7 +134,9 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                   <article className="pcard reveal in" key={p.id}>
                     <div className="pcard-img">
                       <div className="ph" style={img ? { backgroundImage: `url('${img}')` } : undefined} />
-                      <span className="pcard-tag">{p.propertyType === 'land' ? 'Land · For Sale' : 'House · For Sale'}</span>
+                      <span className="pcard-tag">
+                        {p.propertyType === 'land' ? t('gallery.tagLand') : p.propertyType === 'commercial' ? t('gallery.tagCommercial') : t('gallery.tagHouse')}
+                      </span>
                     </div>
                     <div className="pcard-body">
                       <div className="pcard-loc">
