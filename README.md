@@ -1,108 +1,92 @@
-# Signature — Next.js + Payload CMS + MongoDB
+# VAYALAND — Next.js + Payload CMS + MongoDB
 
-The dynamic build of the Signature site. Next.js 15 (App Router) with Payload 3 embedded in the same app, MongoDB for storage, `next-intl` for the EN/ML routing, and local disk for media (S3-ready).
-
----
-
-## What changed from the static mockup
-
-| Static mockup | Dynamic build (this project) |
-|---|---|
-| Hardcoded hero slides | `HeroSlides` collection — client uploads image + text per slide in the admin |
-| Hardcoded property cards | `Properties` collection — client adds/edits/marks-sold; 3 gallery sections are filters on it |
-| Hardcoded service rows | `Services` collection — client adds more; they auto-appear |
-| `data-en` / `data-ml` + JS toggle | Real `/en` and `/ml` routes (`next-intl`); UI strings in `messages/*.json`, content via Payload `localized` fields |
-| Images in the file | `Media` collection → `/public/media` (local now), S3 later with zero code change |
-| `wa.me` / `mailto` links | Same — built at render time with the property/service name pre-filled |
-| No admin | Payload admin at `/admin`, auto-generated from the collections |
+VAYALAND is a premium real estate and architectural land platform tailored for Wayanad, Kerala. Built with Next.js 15 (App Router), Payload CMS 3.x embedded in the application, MongoDB for database persistence, `next-intl` for seamless English & Malayalam bilingual routing, and S3-ready media management.
 
 ---
 
-## First-time setup
+## Brand & Architecture Direction
 
-This folder contains the **content + frontend layer**. Payload's admin route files
-(`src/app/(payload)/...`) are auto-generated, so generate a base once and drop these in:
-
-```bash
-# 1. Generate a Payload 3 base (blank template) in a temp folder
-npx create-payload-app@latest signature-base --template blank --db mongodb
-#    → pick MongoDB, TypeScript
-
-# 2. Copy the generated  src/app/(payload)/  folder into THIS project
-#    (that's the admin + api routes; everything else here overrides the base)
-
-# 3. Install deps in THIS project
-npm install --legacy-peer-deps
-npm install next-intl
-
-# 4. Env
-cp .env.example .env
-#    → fill DATABASE_URI (Mongo Atlas) and PAYLOAD_SECRET (openssl rand -base64 32)
-
-# 5. Run
-npm run dev
-```
-
-Then:
-- Admin: <http://localhost:3000/admin> (create the first user)
-- Site: <http://localhost:3000/en> and <http://localhost:3000/ml>
-
-> Payload requires all `@payloadcms/*` packages to share the exact same version.
-> After `npm install`, pin them together (replace the `latest` entries in package.json).
+VAYALAND communicates:
+- **Premium Real Estate**: Exclusive land parcels, plantation estates, and contemporary villas in Wayanad.
+- **Modern Kerala Sophistication**: Clean, architectural, editorial aesthetic with earthy tones (Ivory, Olive, Charcoal).
+- **Permanence & Trust**: End-to-end verified titles, clear legal documentation, and local expertise.
 
 ---
 
-## Mongo Atlas connection (your pain point, pre-solved)
+## Tech Stack
 
-Payload holds a persistent connection. On Atlas free tier this is fine. The `mongoose`
-adapter uses the standard `mongodb+srv` URI — no pooler gymnastics like the Supabase/Prisma
-case. Just make sure your Atlas **Network Access** allows your IP (or `0.0.0.0/0` for dev),
-and that the DB name in the URI is `signature`.
-
----
-
-## Adding content (what the client does)
-
-1. **Hero slides** → Content → Hero Slides → *Add New* → upload image, type headline/subtitle
-   in EN, switch the field to **മലയാളം**, type the ML version, set order, save.
-2. **Properties** → Content → Properties → *Add New* → type, status, price, images, EN+ML text.
-   Mark `featured` to surface on the homepage. Flip `status` to **Sold** when it sells.
-3. **Services** → Content → Services → *Add New* → name, description, image, features, order.
-
-All localized fields show an **EN / മലയാളം** switcher automatically.
+- **Framework**: Next.js 15 (App Router, Turbopack compatible)
+- **CMS**: Payload CMS 3.x (embedded, auto-generated admin panel at `/admin`)
+- **Database**: MongoDB (via `@payloadcms/db-mongodb` / Mongoose)
+- **Localization**: `next-intl` with dedicated `/en` and `/ml` (Malayalam) routes
+- **Styling**: Vanilla CSS Design System with custom properties (`tokens.css`, `globals.css`)
+- **Image Processing**: `sharp` (v0.33+)
+- **Storage**: Local disk (`/public/media`) with AWS S3 ready plugin (`@payloadcms/storage-s3`)
 
 ---
 
-## Media: local now → S3 later
-
-Uploads land in `/public/media` (served at `/media/...`). To move to S3:
-1. `npm i @payloadcms/storage-s3`
-2. Uncomment the `s3Storage` plugin block in `src/payload.config.ts`, fill the `S3_*` env vars.
-3. Copy existing `/public/media` files into the bucket once.
-Collections and frontend need no changes.
-
-> Deploy to a host with a **persistent disk** (Lightsail, Railway w/ volume, Render w/ disk).
-> On ephemeral filesystems, local uploads vanish on redeploy — attach a volume or go S3.
-
----
-
-## Still to build
-
-- **About** and **Contact** pages are placeholders (`/about`, `/contact`) — port the approved
-  mockups + wire the contact form to POST into the `Enquiries` collection.
-- Swap `WA_NUMBER` and `MAIL` in `src/lib/site.ts` for the real values before launch.
-
-## Structure
+## Project Structure
 
 ```
 src/
-  payload.config.ts        # localization (en/ml), mongo, collections, storage
-  collections/             # Properties, Services, HeroSlides, Media, Users, Enquiries
-  i18n/                    # next-intl routing + request config
-  middleware.ts            # /en /ml routing
-  components/              # Nav, Footer, HeroCarousel, GalleryGrid, BrandMark
-  lib/site.ts              # WhatsApp/mail helpers + numbers
-  app/(frontend)/[locale]/ # home, gallery, services, about, contact + globals.css
-  app/(payload)/           # ← generate with create-payload-app, then drop in
-messages/                  # en.json, ml.json (static UI strings)
+  app/
+    (frontend)/[locale]/     # Public pages (Home, About, Gallery, Services, Contact)
+    (payload)/               # Payload CMS Admin & API routes
+    api/enquiry/             # Contact & inquiry form handler
+    ping/                    # Health check endpoint
+  collections/               # Payload collections: Properties, Services, HeroSlides, Media, Users, Enquiries
+  components/                # UI: Nav, Footer, HeroCarousel, GalleryGrid, BrandMark, ContactForm
+  i18n/                      # next-intl localization routing and request configuration
+  lib/site.ts                # Site constants, contact details, WhatsApp & email deep links
+  middleware.ts              # Route localization middleware
+  payload.config.ts          # Payload CMS configuration (MongoDB, S3, localization)
+messages/
+  en.json                    # English translations
+  ml.json                    # Malayalam translations
 ```
+
+---
+
+## Getting Started
+
+### 1. Environment Setup
+Copy the example environment file and configure your credentials:
+
+```bash
+cp .env.example .env
+```
+
+Set the following variables in `.env`:
+- `DATABASE_URI`: MongoDB connection string (e.g. `mongodb://localhost:27017/vayaland` or MongoDB Atlas URI)
+- `PAYLOAD_SECRET`: Random 32+ character string (generate via `openssl rand -base64 32`)
+- `NEXT_PUBLIC_SERVER_URL`: `http://localhost:3000`
+
+### 2. Install Dependencies
+```bash
+npm install
+```
+
+### 3. Run Development Server
+```bash
+npm run dev
+```
+
+- **Frontend (English)**: [http://localhost:3000/en](http://localhost:3000/en)
+- **Frontend (Malayalam)**: [http://localhost:3000/ml](http://localhost:3000/ml)
+- **Admin Panel**: [http://localhost:3000/admin](http://localhost:3000/admin) (Create your initial admin user on first visit)
+
+---
+
+## Content Management (Admin Panel)
+
+1. **Hero Slides**: Manage hero banners, headlines, subheadings, and localized English & Malayalam typography.
+2. **Properties**: Add land plots, plantation acreage, houses, or villas with status (`Available`, `Under Offer`, `Sold`), price, dimensions, and image galleries.
+3. **Services**: Manage architectural consultation, property verification, and land development services.
+4. **Enquiries**: View and manage customer inquiries submitted through the contact and property detail forms.
+
+---
+
+## Media & Production Storage
+
+- In development, uploads are stored locally in `/public/media`.
+- For production, enable AWS S3 storage by configuring `S3_BUCKET`, `S3_REGION`, `S3_ACCESS_KEY_ID`, and `S3_SECRET_ACCESS_KEY` in `.env` and activating the plugin in `src/payload.config.ts`.

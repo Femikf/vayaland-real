@@ -2,10 +2,24 @@ import React from 'react'
 
 export function AdminIcon() {
   return (
-    <img
-      src="/assets/logo-icon-transparent.png"
-      alt="Signature"
-      style={{ width: 36, height: 36, objectFit: 'contain' }}
-    />
+    <div style={{
+      width: 36,
+      height: 36,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 4,
+      overflow: 'hidden',
+    }}>
+      <img
+        src="/assets/logo-icon.png"
+        alt="VAYALAND"
+        style={{
+          width: 34,
+          height: 34,
+          objectFit: 'contain',
+        }}
+      />
+    </div>
   )
 }

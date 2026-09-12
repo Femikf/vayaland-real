@@ -40,3 +40,6 @@ yarn-error.log*
 # Misc
 .turbo/
 temp/
+.agents/
+tsconfig.tsbuildinfo
+.claude/

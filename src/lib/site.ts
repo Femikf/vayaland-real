@@ -6,9 +6,15 @@ export function parseCoords(url: string): { lat: number; lng: number } | null {
   return null
 }
 
-export const WA_NUMBER = '919292008096'
-export const ALT_NUMBER = '919447854801'
-export const MAIL = 'Signatureclt16@gmail.com'
+// VAYALAND contact details
+// TODO: Update when final contact details are provided
+export const WA_NUMBER = '919526435619'
+export const ALT_NUMBER = '919526435619'
+export const MAIL = 'info@vayaland.com'
+
+export const BRAND_NAME = 'VAYALAND'
+export const BRAND_TAGLINE = 'The Real Wayanad'
+export const BRAND_LOCATION = 'Pulpally, Wayanad, Kerala'
 
 export const waLink = (msg: string) =>
   `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`

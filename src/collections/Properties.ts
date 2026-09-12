@@ -27,8 +27,11 @@ export const Properties: CollectionConfig = {
       name: 'status',
       type: 'select',
       required: true,
-      defaultValue: 'available',
+      defaultValue: 'ongoing',
       options: [
+        { label: 'Ongoing', value: 'ongoing' },
+        { label: 'Completed', value: 'completed' },
+        { label: 'Upcoming', value: 'upcoming' },
         { label: 'Available', value: 'available' },
         { label: 'Sold', value: 'sold' },
       ],

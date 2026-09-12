@@ -13,9 +13,31 @@ export type Slide = {
 }
 
 export function HeroCarousel({ slides, scrollLabel }: { slides: Slide[]; scrollLabel: string }) {
+  const defaultSlides: Slide[] = [
+    {
+      id: 'default-1',
+      title: 'Architectural Living & Land in Wayanad',
+      eyebrow: 'VAYALAND · THE REAL WAYANAD',
+      subtitle: 'Curated plots, plantation estates, and contemporary villas nestled in the Western Ghats.',
+      ctaLabel: 'Explore Properties',
+      ctaLink: '/gallery',
+      imageUrl: '/assets/hero-villa.jpg',
+    },
+    {
+      id: 'default-2',
+      title: 'Land Plots & Masterplanned Estates',
+      eyebrow: 'EXCLUSIVE WAYANAD PARCELS',
+      subtitle: 'Permanence, understated luxury, and verified titles in the heart of Kerala.',
+      ctaLabel: 'Our Services',
+      ctaLink: '/services',
+      imageUrl: '/assets/architecture-mood.jpg',
+    },
+  ]
+
+  const activeSlides = slides.length > 0 ? slides : defaultSlides
   const [idx, setIdx] = useState(0)
   const timer = useRef<ReturnType<typeof setTimeout>>(undefined)
-  const n = slides.length
+  const n = activeSlides.length
 
   const go = (to: number) => setIdx(((to % n) + n) % n)
 
@@ -25,8 +47,6 @@ export function HeroCarousel({ slides, scrollLabel }: { slides: Slide[]; scrollL
     return () => clearTimeout(timer.current)
   }, [idx, n])
 
-  if (n === 0) return null
-
   return (
     <header
       className="hero"
@@ -34,7 +54,7 @@ export function HeroCarousel({ slides, scrollLabel }: { slides: Slide[]; scrollL
       onMouseLeave={() => { timer.current = setTimeout(() => setIdx((i) => (i + 1) % n), 6000) }}
     >
       <div className="slides">
-        {slides.map((s, i) => (
+        {activeSlides.map((s, i) => (
           <div key={s.id} className={`slide ${i === idx ? 'active' : ''}`}>
             <div className="slide-bg" style={{ backgroundImage: s.imageUrl ? `url('${s.imageUrl}')` : undefined }} />
           </div>
@@ -52,7 +72,7 @@ export function HeroCarousel({ slides, scrollLabel }: { slides: Slide[]; scrollL
       </svg>
 
       <div className="hero-top">
-        {slides.map((s, i) => (
+        {activeSlides.map((s, i) => (
           <div key={s.id} className={`slide-content ${i === idx ? 'show' : ''}`}>
             {s.eyebrow && <span className="eyebrow">{s.eyebrow}</span>}
             <h1 className="display" key={`${s.id}-${idx}`}>
@@ -72,7 +92,7 @@ export function HeroCarousel({ slides, scrollLabel }: { slides: Slide[]; scrollL
       </div>
 
       <div className="hero-bottom">
-        {slides.map((s, i) => (
+        {activeSlides.map((s, i) => (
           <div key={s.id} className={`slide-content ${i === idx ? 'show' : ''}`}>
             {s.subtitle && <p className="sub">{s.subtitle}</p>}
           </div>
@@ -81,7 +101,7 @@ export function HeroCarousel({ slides, scrollLabel }: { slides: Slide[]; scrollL
 
       <div className="hero-controls">
         <div className="dots">
-          {slides.map((_, i) => (
+          {activeSlides.map((_, i) => (
             <button key={i} className={`dot ${i === idx ? 'active' : ''}`} onClick={() => go(i)} aria-label={`Slide ${i + 1}`}>
               <span />
             </button>

@@ -44,12 +44,12 @@ export default async function PropertyDetailPage({
 
   const wa = waLink(
     isSold
-      ? `Hi Signature, I'm looking for a property like ${property.title}. Please share similar options.`
-      : `Hi Signature, I'm interested in ${property.title}. Please share more details and arrange a site visit.`,
+      ? `Hi, I'm looking for a property like ${property.title}. Please share similar options.`
+      : `Hi, I'm interested in ${property.title}. Please share more details and arrange a site visit.`,
   )
   const mail = mailLink(
     `Enquiry: ${property.title}`,
-    `Hi Signature,\n\nI'm interested in ${property.title}.\nLocation: ${property.location || ''}\nPrice: ${property.price || ''}\n\nPlease share availability and a site visit slot.\n\nThanks,`,
+    `Hi,\n\nI'm interested in ${property.title}.\nLocation: ${property.location || ''}\nPrice: ${property.price || ''}\n\nPlease share availability and a site visit slot.\n\nThanks,`,
   )
 
   return (
@@ -69,7 +69,7 @@ export default async function PropertyDetailPage({
           <h1 className="display">{property.title}</h1>
           {property.location && (
             <div className="prop-head-loc">
-              <svg viewBox="0 0 24 24" width="13" height="13" stroke="var(--gold-2)" fill="none" strokeWidth="1.6">
+              <svg viewBox="0 0 24 24" width="13" height="13" stroke="var(--vl-olive-light)" fill="none" strokeWidth="1.6">
                 <path d="M12 21s-7-6-7-11a7 7 0 0 1 14 0c0 5-7 11-7 11z" /><circle cx="12" cy="10" r="2.5" />
               </svg>
               {property.location}
@@ -110,7 +110,7 @@ export default async function PropertyDetailPage({
           {/* Price + Specs */}
           <div className="prop-meta">
             {property.price && (
-              <div className={`prop-price${isSold ? ' prop-price-sold' : ' gold-text'}`}>
+              <div className={`prop-price${isSold ? ' prop-price-sold' : ''}`}>
                 {property.price}
               </div>
             )}

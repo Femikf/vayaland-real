@@ -1,0 +1,148 @@
+/* ═══════════════════════════════════════════════════════════════
+   VAYALAND — Design Tokens
+   Premium real estate · Wayanad, Kerala
+   ═══════════════════════════════════════════════════════════════ */
+
+:root {
+  /* ── Color Palette (Matching VAYALAND Official Logo) ── */
+  /* Deep Lagoon Charcoal replacing plain black */
+  --vl-black: #0D1A1C;
+  --vl-ink: #142426;
+  --vl-graphite: #1E3437;
+  --vl-ivory: #F8F6F0;
+  --vl-cream: #EDE7DC;
+  --vl-white: #FFFFFF;
+
+  /* Primary Accent: Deep Wayanad Teal (from logo oval) */
+  --vl-teal: #085056;
+  --vl-teal-dark: #05373B;
+  --vl-teal-light: #0E6C74;
+  --vl-teal-faint: rgba(8, 80, 86, 0.08);
+  --vl-teal-glow: rgba(8, 80, 86, 0.25);
+
+  /* Secondary Accent: Sunset Amber & Warm Gold (from logo sun & swoosh) */
+  --vl-amber: #E28C24;
+  --vl-amber-dark: #C67316;
+  --vl-amber-light: #F4A261;
+  --vl-gold: #F4B41A;
+  --vl-amber-faint: rgba(226, 140, 36, 0.08);
+
+  /* Lush Landscape Green (from logo palm trees & hills) */
+  --vl-green: #2D6A4F;
+  --vl-green-light: #40916C;
+  --vl-green-faint: rgba(45, 106, 79, 0.08);
+
+  /* Aliases for seamless component compatibility */
+  --vl-olive: var(--vl-teal);
+  --vl-olive-dark: var(--vl-teal-dark);
+  --vl-olive-light: var(--vl-teal-light);
+  --vl-olive-faint: var(--vl-teal-faint);
+
+  /* Supporting neutrals */
+  --vl-stone: #B8AFA2;
+  --vl-sand: #D4CBBD;
+  --vl-concrete: #9E9890;
+  --vl-warm-gray: #7A756E;
+  --vl-taupe: #A39B8F;
+
+  /* Borders */
+  --vl-line: rgba(8, 80, 86, 0.09);
+  --vl-line-dark: rgba(248, 246, 240, 0.12);
+  --vl-line-olive: rgba(8, 80, 86, 0.22);
+  --vl-line-teal: rgba(8, 80, 86, 0.22);
+  --vl-line-amber: rgba(226, 140, 36, 0.28);
+
+  /* Text — on light backgrounds */
+  --vl-text-primary: #0E1A1B;
+  --vl-text-secondary: rgba(14, 26, 27, 0.65);
+  --vl-text-tertiary: rgba(14, 26, 27, 0.42);
+
+  /* Text — on dark backgrounds */
+  --vl-text-on-dark: #F8F6F0;
+  --vl-text-on-dark-soft: rgba(248, 246, 240, 0.78);
+  --vl-text-on-dark-dim: rgba(248, 246, 240, 0.45);
+
+  /* ── Typography ── */
+  --vl-font-display: 'Playfair Display', 'Georgia', serif;
+  --vl-font-body: 'Inter', -apple-system, 'Segoe UI', sans-serif;
+
+  /* Type scale — fluid */
+  --vl-text-display: clamp(3rem, 6.5vw, 6rem);
+  --vl-text-h1: clamp(2.2rem, 4.8vw, 4rem);
+  --vl-text-h2: clamp(1.7rem, 3.2vw, 2.6rem);
+  --vl-text-h3: clamp(1.2rem, 1.8vw, 1.5rem);
+  --vl-text-body: clamp(0.94rem, 1vw, 1.05rem);
+  --vl-text-body-lg: clamp(1.05rem, 1.2vw, 1.2rem);
+  --vl-text-small: 0.85rem;
+  --vl-text-label: 0.72rem;
+  --vl-text-nav: 0.8rem;
+  --vl-text-meta: 0.68rem;
+
+  /* Line heights */
+  --vl-leading-display: 1.0;
+  --vl-leading-tight: 1.1;
+  --vl-leading-heading: 1.2;
+  --vl-leading-body: 1.7;
+  --vl-leading-relaxed: 1.85;
+
+  /* Letter spacing */
+  --vl-tracking-tight: -0.025em;
+  --vl-tracking-normal: 0;
+  --vl-tracking-wide: 0.06em;
+  --vl-tracking-wider: 0.14em;
+  --vl-tracking-widest: 0.24em;
+
+  /* Font weights */
+  --vl-weight-light: 300;
+  --vl-weight-regular: 400;
+  --vl-weight-medium: 500;
+  --vl-weight-semibold: 600;
+  --vl-weight-bold: 700;
+
+  /* ── Spacing ── */
+  --vl-space-2xs: 4px;
+  --vl-space-xs: 8px;
+  --vl-space-sm: 12px;
+  --vl-space-md: 16px;
+  --vl-space-lg: 24px;
+  --vl-space-xl: 40px;
+  --vl-space-2xl: 64px;
+  --vl-space-3xl: 96px;
+  --vl-space-4xl: 128px;
+  --vl-space-section: clamp(80px, 10vw, 160px);
+
+  /* ── Grid ── */
+  --vl-grid-max: 1440px;
+  --vl-grid-margin: clamp(20px, 6vw, 96px);
+  --vl-grid-gutter: clamp(16px, 2vw, 32px);
+  --vl-grid-narrow: 860px;
+
+  /* ── Border radius ── */
+  --vl-radius-sm: 2px;
+  --vl-radius-md: 3px;
+  --vl-radius-lg: 6px;
+
+  /* ── Motion ── */
+  --vl-ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --vl-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --vl-ease-in-out: cubic-bezier(0.76, 0, 0.24, 1);
+  --vl-duration-instant: 0.12s;
+  --vl-duration-fast: 0.2s;
+  --vl-duration-base: 0.4s;
+  --vl-duration-slow: 0.7s;
+  --vl-duration-reveal: 1s;
+
+  /* ── Shadows (very restrained) ── */
+  --vl-shadow-xs: 0 1px 2px rgba(26, 26, 24, 0.04);
+  --vl-shadow-sm: 0 2px 8px rgba(26, 26, 24, 0.05);
+  --vl-shadow-md: 0 4px 20px rgba(26, 26, 24, 0.07);
+  --vl-shadow-lg: 0 12px 48px rgba(26, 26, 24, 0.08);
+}
+
+/* Malayalam overrides */
+html[data-lang="ml"] {
+  --vl-font-display: 'Manjari', sans-serif;
+  --vl-tracking-wide: 0.02em;
+  --vl-tracking-wider: 0.04em;
+  --vl-tracking-widest: 0.08em;
+}

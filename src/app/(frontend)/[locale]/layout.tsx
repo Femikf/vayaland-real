@@ -11,8 +11,8 @@ export function generateStaticParams() {
 }
 
 export const metadata = {
-  title: 'Signature — Contractors & Developers',
-  description: 'Real estate, construction, fire & safety and transport across Kerala.',
+  title: 'VAYALAND — The Real Wayanad',
+  description: 'Premium real estate in Wayanad, Kerala. Discover land, plots, homes, and architectural properties in the heart of Kerala.',
   icons: {
     icon: '/assets/logo-icon.png',
     shortcut: '/assets/logo-icon.png',

@@ -1,7 +1,7 @@
 {
-  "name": "signature-app",
+  "name": "vayaland-web",
   "version": "1.0.0",
-  "description": "Signature Contractors & Developers — Next.js + Payload CMS + MongoDB",
+  "description": "VAYALAND — Premium Real Estate & Architectural Land in Wayanad, Kerala",
   "type": "module",
   "scripts": {
     "dev": "next dev",

@@ -100,7 +100,7 @@ export function GalleryGrid({ properties }: { properties: Property[] }) {
           </div>
           <div className="gcta-btns">
             <a
-              href={waLink('Hi Signature, I am looking for a property and need your help.')}
+              href={waLink('Hi, I am looking for a property in Wayanad and need your help.')}
               className="btn-whatsapp"
               target="_blank"
               rel="noopener"

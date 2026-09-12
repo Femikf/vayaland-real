@@ -20,8 +20,8 @@ export default buildConfig({
   admin: {
     user: Users.slug,
     meta: {
-      title: 'Signature Admin',
-      titleSuffix: '— Signature Admin',
+      title: 'Vayaland Admin',
+      titleSuffix: '— Vayaland Admin',
       icons: [{ rel: 'icon', url: '/assets/logo-icon.png' }],
     },
     components: {
@@ -66,16 +66,20 @@ export default buildConfig({
   sharp,
 
   plugins: [
-    s3Storage({
-      collections: { media: { prefix: 'signature-base' } },
-      bucket: process.env.AWS_S3_BUCKET_NAME!,
-      config: {
-        region: process.env.AWS_REGION!,
-        credentials: {
-          accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
-          secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
-        },
-      },
-    }),
+    ...(process.env.AWS_S3_BUCKET_NAME
+      ? [
+          s3Storage({
+            collections: { media: { prefix: 'vayaland' } },
+            bucket: process.env.AWS_S3_BUCKET_NAME,
+            config: {
+              region: process.env.AWS_REGION || 'eu-north-1',
+              credentials: {
+                accessKeyId: process.env.AWS_ACCESS_KEY_ID || '',
+                secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || '',
+              },
+            },
+          }),
+        ]
+      : []),
   ],
 })
