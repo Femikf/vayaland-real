@@ -80,6 +80,57 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       : 'Hello Vayaland, I would like to enquire about your land parcels and architectural estates in Wayanad.'
   )
 
+  const keralaGalleryItems = [
+    {
+      id: 'kerala-1',
+      title: locale === 'ml' ? 'സമകാലിക കേരള വാസ്തുശില്പ ഭവനം' : 'Contemporary Kerala Residence',
+      location: locale === 'ml' ? 'പുൽപ്പള്ളി, വയനാട്' : 'Pulpally, Wayanad',
+      tag: locale === 'ml' ? 'വീടുകൾ · House for Sale' : 'House for Sale · Modern Kerala',
+      image: '/assets/kerala-house-sale.png',
+      categoryLink: '/projects?category=house',
+    },
+    {
+      id: 'kerala-2',
+      title: locale === 'ml' ? 'മേപ്പാടി റെഡ്-സോയിൽ പ്ലോട്ട്' : 'Wayanad Terraced Red-Soil Plot',
+      location: locale === 'ml' ? 'മേപ്പാടി അടിവാരം' : 'Meppadi Foothills',
+      tag: locale === 'ml' ? 'സ്ഥലങ്ങൾ · Land for Sale' : 'Land for Sale · Ready to Build',
+      image: '/assets/kerala-land-plot.png',
+      categoryLink: '/projects?category=land',
+    },
+    {
+      id: 'kerala-3',
+      title: locale === 'ml' ? 'കേരള പാം ഗ്രോവ് & പ്ലാന്റേഷൻ' : 'Lush Kerala Palm Grove & Meadow',
+      location: locale === 'ml' ? 'സുൽത്താൻ ബത്തേരി പീഠഭൂമി' : 'Sulthan Bathery Plateau',
+      tag: locale === 'ml' ? 'സ്ഥലങ്ങൾ · Plantation Acreage' : 'Land for Sale · Plantation Acreage',
+      image: '/assets/kerala-plantation-meadow.png',
+      categoryLink: '/projects?category=land',
+    },
+    {
+      id: 'kerala-4',
+      title: locale === 'ml' ? 'ബാണാസുര ലേക്‌സൈഡ് ഇക്കോ റിസോർട്ട്' : 'Banasura Lakeside Hill Resort',
+      location: locale === 'ml' ? 'ബാണാസുര സാഗർ, വയനാട്' : 'Banasura Sagar, Wayanad',
+      tag: locale === 'ml' ? 'റിസോർട്ടുകൾ · Resort for Sale' : 'Resort for Sale · Lake Panoramas',
+      image: '/assets/kerala-resort-aerial.png',
+      categoryLink: '/projects?category=resort',
+    },
+    {
+      id: 'kerala-5',
+      title: locale === 'ml' ? 'ചെമ്പ്ര കോടമഞ്ഞ് താഴ്‌വര' : 'Emerald Morning Mist Ridge',
+      location: locale === 'ml' ? 'ചെമ്പ്ര കൊടുമുടി' : 'Chembra Peak Valley',
+      tag: locale === 'ml' ? 'പ്രകൃതി സൗന്ദര്യം · Highland Belt' : 'Highland Vantage · Ecological Belt',
+      image: '/assets/kerala-mist-sunrise.jpg',
+      categoryLink: '/projects?category=land',
+    },
+    {
+      id: 'kerala-6',
+      title: locale === 'ml' ? 'തനത് വെട്ടുകല്ലും തേക്ക് തടിയും' : 'Handcrafted Laterite & Seasoned Teak',
+      location: locale === 'ml' ? 'വയനാട് ഹൈലാൻഡ്സ്' : 'Wayanad Highlands',
+      tag: locale === 'ml' ? 'വാസ്തുശില്പം · Vernacular Craft' : 'House for Sale · Vernacular Craft',
+      image: '/assets/modern-timber-eaves.jpg',
+      categoryLink: '/projects?category=house',
+    },
+  ]
+
   return (
     <div className="vl-homepage-root">
       {/* ========================================================================= */}
@@ -115,7 +166,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             </p>
 
             <div className="vl-hero-actions">
-              <Link href="/gallery" className="vl-btn-gold">
+              <Link href="/projects" className="vl-btn-gold">
                 <span>{t('home.explore')}</span>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" />
@@ -279,7 +330,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
               </div>
 
               <div className="vl-dossier-actions">
-                <Link href="/gallery" className="vl-btn-gold">
+                <Link href="/projects" className="vl-btn-gold">
                   <span>{t('home.viewProject')}</span>
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" />
@@ -317,7 +368,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
               <p className="vl-editorial-sub">{t('home.collectionSub')}</p>
             </div>
             <div className="vl-collection-header-cta">
-              <Link href="/gallery" className="vl-btn-outline">
+              <Link href="/projects" className="vl-btn-outline">
                 <span>{t('home.viewAll')}</span>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" />
@@ -341,7 +392,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                   key={p.id || idx}
                   className={`vl-prop-card ${isLargeCard ? 'vl-prop-card-large' : 'vl-prop-card-regular'}`}
                 >
-                  <Link href="/gallery" className="vl-prop-card-link" aria-label={p.title}>
+                  <Link href="/projects" className="vl-prop-card-link" aria-label={p.title}>
                     <div className="vl-prop-media-box">
                       <Image
                         src={imgUrl}
@@ -384,7 +435,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           </div>
 
           <div className="vl-collection-mobile-cta">
-            <Link href="/gallery" className="vl-btn-outline">
+            <Link href="/projects" className="vl-btn-outline">
               <span>{t('home.viewAll')}</span>
             </Link>
           </div>
@@ -477,9 +528,10 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       {/* SECTION 7: VISUAL GALLERY                                                 */}
       {/* ========================================================================= */}
       <VisualGallery
-        eyebrow={t('home.galleryTag')}
-        title={t('home.galleryTitle')}
-        subtitle={t('home.gallerySub')}
+        eyebrow={locale === 'ml' ? 'കേരള വാസ്തുശില്പ ഗാലറി' : 'KERALA ARCHITECTURAL & LANDSCAPE GALLERY'}
+        title={locale === 'ml' ? 'വയനാടിന്റെ തനത് ഭൂപ്രകൃതിയും ഭവനങ്ങളും' : 'The Kerala Living Chronicle'}
+        subtitle={locale === 'ml' ? 'വയനാട്ടിലെ സമകാലിക ഭവനങ്ങൾ, പ്ലാന്റേഷൻ ഭൂമികൾ, തടാക റിസോർട്ടുകൾ എന്നിവയുടെ ദൃശ്യാനുഭവം.' : 'An intimate visual showcase of authentic Kerala architecture, lush plantation parcels, and lakeside resorts curated by Vayaland.'}
+        items={keralaGalleryItems}
       />
 
       {/* ========================================================================= */}

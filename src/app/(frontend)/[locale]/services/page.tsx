@@ -49,7 +49,7 @@ export default async function ServicesPage({
     cmsServices = []
   }
 
-  // Core Vayaland Architectural Disciplines (application-verified)
+  // Core Vayaland Real Estate Categories (House for Sale, Land for Sale, Commercial, Resort for Sale)
   const coreServices: ServiceItem[] = [
     {
       id: 'service-01',
@@ -60,15 +60,15 @@ export default async function ServicesPage({
       deliverablesTitle: t('s1DeliverablesTitle'),
       deliverables: [t('s1D1'), t('s1D2'), t('s1D3'), t('s1D4')],
       exploreLabel: t('s1Explore'),
-      exploreHref: '/projects',
+      exploreHref: '/projects?category=house',
       enquireLabel: t('s1Enquire'),
       enquireMessage:
         locale === 'ml'
-          ? 'നമസ്കാരം വയലാൻഡ്, എനിക്ക് വയനാട്ടിലെ ഭൂമി / പ്ലാന്റേഷൻ അക്വിസിഷനെക്കുറിച്ച് ആലോചിക്കാൻ താല്പര്യമുണ്ട്.'
-          : 'Hello Vayaland, I would like to enquire about your Land & Estate Acquisition advisory in Wayanad.',
-      image: '/assets/masterplanned-plots.jpg',
-      imageAlt: 'Vayaland Land & Estate Acquisition Wayanad',
-      coordsTag: '11.7853° N, 76.1684° E · Elevation: 760m',
+          ? 'നമസ്കാരം വയലാൻഡ്, എനിക്ക് വയനാട്ടിൽ വീടുകൾ / വില്ലകൾ വാങ്ങുന്നതിനെക്കുറിച്ച് ആലോചിക്കാൻ താല്പര്യമുണ്ട്.'
+          : 'Hello Vayaland, I would like to enquire about Houses and Villas for Sale in Wayanad.',
+      image: '/assets/kerala-house-sale.png',
+      imageAlt: 'Vayaland Houses and Villas for Sale Wayanad',
+      coordsTag: 'Contemporary Kerala · Verified Titles · Turnkey Handover',
     },
     {
       id: 'service-02',
@@ -79,15 +79,15 @@ export default async function ServicesPage({
       deliverablesTitle: t('s2DeliverablesTitle'),
       deliverables: [t('s2D1'), t('s2D2'), t('s2D3'), t('s2D4')],
       exploreLabel: t('s2Explore'),
-      exploreHref: '/projects',
+      exploreHref: '/projects?category=land',
       enquireLabel: t('s2Enquire'),
       enquireMessage:
         locale === 'ml'
-          ? 'നമസ്കാരം വയലാൻഡ്, എനിക്ക് നിങ്ങളുടെ വാസ്തുവിദ്യാ രൂപകൽപ്പനയെയും സൈറ്റ് പ്ലാനിംഗിനെയും കുറിച്ച് സംസാരിക്കണം.'
-          : 'Hello Vayaland, I would like to schedule an Architectural Siting & Spatial Design consultation.',
-      image: '/assets/architecture-mood.jpg',
-      imageAlt: 'Vayaland Architectural Siting and Spatial Design',
-      coordsTag: 'Bio-Climatic Siting · Tropical Vernacular',
+          ? 'നമസ്കാരം വയലാൻഡ്, എനിക്ക് വയനാട്ടിലെ ഭൂമി / പ്ലാന്റേഷൻ പ്ലോട്ടുകളെക്കുറിച്ച് ആലോചിക്കാൻ താല്പര്യമുണ്ട്.'
+          : 'Hello Vayaland, I would like to enquire about Land Parcels and Plantation Estates for Sale in Wayanad.',
+      image: '/assets/kerala-land-plot.png',
+      imageAlt: 'Vayaland Land Parcels and Plantation Holdings Wayanad',
+      coordsTag: 'Fertile Soil · 30-Year Prior Deed · Contour Mapped',
     },
     {
       id: 'service-03',
@@ -98,15 +98,15 @@ export default async function ServicesPage({
       deliverablesTitle: t('s3DeliverablesTitle'),
       deliverables: [t('s3D1'), t('s3D2'), t('s3D3'), t('s3D4')],
       exploreLabel: t('s3Explore'),
-      exploreHref: '/projects',
+      exploreHref: '/projects?category=commercial',
       enquireLabel: t('s3Enquire'),
       enquireMessage:
         locale === 'ml'
-          ? 'നമസ്കാരം വയലാൻഡ്, എനിക്ക് വയനാട്ടിൽ ഒരു വില്ല / റെസിഡൻസ് ടേൺകീ നിർമ്മാണത്തെക്കുറിച്ച് കൺസൾട്ട് ചെയ്യണം.'
-          : 'Hello Vayaland, I am planning a luxury residential build in Wayanad and would like to discuss Turnkey Construction.',
-      image: '/assets/villa-infinity-sunset.jpg',
-      imageAlt: 'Vayaland Turnkey Construction and Villa Development',
-      coordsTag: 'Monsoon-Resilient · Laterite & Teak Joinery',
+          ? 'നമസ്കാരം വയലാൻഡ്, എനിക്ക് വയനാട്ടിലെ കൊമേഴ്‌സ്യൽ കെട്ടിടങ്ങളെക്കുറിച്ചും നിക്ഷേപങ്ങളെക്കുറിച്ചും അറിയണം.'
+          : 'Hello Vayaland, I would like to enquire about Commercial Buildings and Investment Properties in Wayanad.',
+      image: '/assets/architectural-limestone.jpg',
+      imageAlt: 'Vayaland Commercial Buildings & Properties Wayanad',
+      coordsTag: 'Main Highway Frontage · High Rental Yield · Commercial Approved',
     },
     {
       id: 'service-04',
@@ -117,15 +117,15 @@ export default async function ServicesPage({
       deliverablesTitle: t('s4DeliverablesTitle'),
       deliverables: [t('s4D1'), t('s4D2'), t('s4D3'), t('s4D4')],
       exploreLabel: t('s4Explore'),
-      exploreHref: '/about',
+      exploreHref: '/projects?category=resort',
       enquireLabel: t('s4Enquire'),
       enquireMessage:
         locale === 'ml'
-          ? 'നമസ്കാരം വയലാൻഡ്, എനിക്ക് വയനാട്ടിലെ പ്രോപ്പർട്ടി ടൈറ്റിൽ സ്ക്രൂട്ടിനിയെക്കുറിച്ചും ലീഗൽ പരിശോധനയെക്കുറിച്ചും അറിയണം.'
-          : 'Hello Vayaland, I would like to consult your legal team regarding Title Scrutiny & Land Due Diligence in Wayanad.',
-      image: '/assets/architectural-limestone.jpg',
-      imageAlt: 'Vayaland Title Scrutiny and Legal Diligence',
-      coordsTag: '30-Year Prior Deed Chain · 100% Clear Title',
+          ? 'നമസ്കാരം വയലാൻഡ്, എനിക്ക് വയനാട്ടിലെ റിസോർട്ടുകൾ / ടൂറിസം പ്രോപ്പർട്ടികളെക്കുറിച്ച് അറിയണം.'
+          : 'Hello Vayaland, I would like to enquire about Resorts for Sale and Hospitality Land in Wayanad.',
+      image: '/assets/kerala-resort-aerial.png',
+      imageAlt: 'Vayaland Resorts and Hospitality Land for Sale Wayanad',
+      coordsTag: 'Lakeside Panoramas · Tourism Licensing · Agro-Tourism Potential',
     },
   ]
 
@@ -299,9 +299,14 @@ export default async function ServicesPage({
                     )}
 
                     <div className="vl-service-actions">
+                      <Link href={service.exploreHref as any} className="vl-service-cta-primary">
+                        <span>{service.exploreLabel}</span>
+                        <span className="vl-cta-arrow" aria-hidden="true">→</span>
+                      </Link>
+
                       <a
                         href={serviceWa}
-                        className="vl-service-cta-primary"
+                        className="vl-service-cta-ghost"
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label={`${service.enquireLabel} via WhatsApp`}
@@ -311,11 +316,6 @@ export default async function ServicesPage({
                         </svg>
                         <span>{service.enquireLabel}</span>
                       </a>
-
-                      <Link href={service.exploreHref as any} className="vl-service-cta-ghost">
-                        <span>{service.exploreLabel}</span>
-                        <span className="vl-cta-arrow" aria-hidden="true">↗</span>
-                      </Link>
                     </div>
                   </div>
                 </div>

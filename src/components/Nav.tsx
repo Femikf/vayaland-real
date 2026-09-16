@@ -57,11 +57,9 @@ export function Nav() {
   }
 
   const navItems = [
-    { href: '/projects', label: t('projects'), num: '01', key: 'projects' },
+    { href: '/services', label: t('services'), num: '01', key: 'services' },
     { href: '/about', label: t('about'), num: '02', key: 'about' },
-    { href: '/services', label: t('services'), num: '03', key: 'services' },
-    { href: '/gallery', label: t('gallery'), num: '04', key: 'gallery' },
-    { href: '/contact', label: t('contact'), num: '05', key: 'contact' },
+    { href: '/contact', label: t('contact'), num: '03', key: 'contact' },
   ]
 
   const consultMessage =
@@ -131,7 +129,10 @@ export function Nav() {
               aria-label="Enquire via WhatsApp"
             >
               <span className="vl-cta__text">{t('letsTalk')}</span>
-              <svg
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+                <path d="M12 2a10 10 0 0 0-8.6 15l-1.4 5 5.2-1.4A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-3-.2-.3A8 8 0 1 1 12 20zm4.4-5.9c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.5.1-.6.8-.8 1-.3.1-.5 0a6.5 6.5 0 0 1-1.9-1.2 7.3 7.3 0 0 1-1.4-1.7c-.1-.2 0-.4.1-.5l.4-.4.2-.4a.4.4 0 0 0 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4H8a.9.9 0 0 0-.7.3 2.8 2.8 0 0 0-.9 2.1 4.9 4.9 0 0 0 1 2.6 11 11 0 0 0 4.3 3.8c2.3 1 2.3.7 2.7.6a2.5 2.5 0 0 0 1.6-1.1 2 2 0 0 0 .1-1.1c0-.1-.2-.2-.4-.3z" />
+              </svg>
+              {/* <svg
                 className="vl-cta__arrow"
                 viewBox="0 0 16 16"
                 fill="none"
@@ -145,7 +146,7 @@ export function Nav() {
                   strokeLinecap="round"
                   strokeLinejoin="round"
                 />
-              </svg>
+              </svg> */}
             </a>
 
             {/* Mobile Menu Button (48x48px min touch target) */}
@@ -158,9 +159,9 @@ export function Nav() {
               aria-haspopup="dialog"
               aria-label={menuOpen ? t('close') : t('menu')}
             >
-              <span className="vl-menu-trigger__label">
+              {/* <span className="vl-menu-trigger__label">
                 {menuOpen ? t('close') : t('menu')}
-              </span>
+              </span> */}
               <span className="vl-menu-trigger__icon" aria-hidden="true">
                 <span className="vl-menu-trigger__bar" />
                 <span className="vl-menu-trigger__bar" />
@@ -292,9 +293,9 @@ export function Nav() {
                     <path d="M12 2a10 10 0 0 0-8.6 15l-1.4 5 5.2-1.4A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-3-.2-.3A8 8 0 1 1 12 20zm4.4-5.9c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.5.1-.6.8-.8 1-.3.1-.5 0a6.5 6.5 0 0 1-1.9-1.2 7.3 7.3 0 0 1-1.4-1.7c-.1-.2 0-.4.1-.5l.4-.4.2-.4a.4.4 0 0 0 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4H8a.9.9 0 0 0-.7.3 2.8 2.8 0 0 0-.9 2.1 4.9 4.9 0 0 0 1 2.6 11 11 0 0 0 4.3 3.8c2.3 1 2.3.7 2.7.6a2.5 2.5 0 0 0 1.6-1.1 2 2 0 0 0 .1-1.1c0-.1-.2-.2-.4-.3z" />
                   </svg>
                   <span>{t('letsTalk')}</span>
-                  <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
-                    <path d="M3 13L13 3M13 3H5M13 3V11" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
+                  {/* <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                  </svg> */}
                 </a>
               </div>
             </div>

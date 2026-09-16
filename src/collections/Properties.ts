@@ -21,6 +21,7 @@ export const Properties: CollectionConfig = {
         { label: 'House for Sale', value: 'house' },
         { label: 'Land for Sale', value: 'land' },
         { label: 'Commercial Buildings & Properties', value: 'commercial' },
+        { label: 'Resort for Sale', value: 'resort' },
       ],
     },
     {
@@ -53,7 +54,7 @@ export const Properties: CollectionConfig = {
       label: 'Google Earth / Maps Link',
       admin: {
         description: 'Paste the Google Earth or Google Maps satellite URL for this land/commercial plot. Leave blank for houses.',
-        condition: (data) => data.propertyType === 'land' || data.propertyType === 'commercial',
+        condition: (data) => data.propertyType === 'land' || data.propertyType === 'commercial' || data.propertyType === 'resort',
       },
     },
     { name: 'featured', type: 'checkbox', label: 'Show on homepage', defaultValue: false },

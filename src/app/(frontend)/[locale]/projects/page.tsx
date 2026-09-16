@@ -13,10 +13,14 @@ import {
 
 export default async function ProjectsPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ locale: string }>
+  searchParams?: Promise<{ category?: string }>
 }) {
   const { locale } = await params
+  const resolvedSearchParams = searchParams ? await searchParams : {}
+  const initialCategory = resolvedSearchParams?.category || ''
   setRequestLocale(locale)
   const t = await getTranslations()
 
@@ -36,8 +40,10 @@ export default async function ProjectsPage({
       cmsProjects = docs.map((d: any) => {
         // Map CMS propertyType to ProjectCategory
         let category: ProjectCategory = 'land'
-        if (d.propertyType === 'house') category = 'residential'
+        if (d.propertyType === 'house') category = 'house'
+        else if (d.propertyType === 'land') category = 'land'
         else if (d.propertyType === 'commercial') category = 'commercial'
+        else if (d.propertyType === 'resort') category = 'resort'
         else category = 'land'
 
         // Map CMS status to ProjectStatus
@@ -68,33 +74,55 @@ export default async function ProjectsPage({
     cmsProjects = []
   }
 
-  // Curated architectural catalogue showcase items (ensures every filter has rich content)
+  // Curated architectural catalogue showcase items (ensures every category has rich content)
   const showcaseProjects: ProjectItem[] = [
     {
       id: 'project-1',
       title:
         locale === 'ml'
-          ? 'ദി മിസ്ട്രൽ ഹൊറൈസൺ വില്ല & എസ്റ്റേറ്റ്'
-          : 'The Mistral Horizon Villa & Estate',
-      category: 'residential',
+          ? 'ആധുനിക കേരള വാസ്തുശില്പ വില്ല'
+          : 'Contemporary Kerala Architectural Villa',
+      category: 'house',
       status: 'ongoing',
-      location: locale === 'ml' ? 'മേപ്പാടി, വയനാട്' : 'Meppadi, Wayanad',
-      price: '₹ 3.85 Cr',
-      extent: '2.8 Acres · 4 Bed Villa',
+      location: locale === 'ml' ? 'പുൽപ്പള്ളി, വയനാട്' : 'Pulpally, Wayanad',
+      price: '₹ 1.85 Cr',
+      extent: '3,200 Sq Ft · 4 Bed Villa',
       specs: [
-        locale === 'ml' ? '25 മീറ്റർ ഇൻഫിനിറ്റി പൂൾ' : '25m Infinity Pool',
-        locale === 'ml' ? '2,600 അടി ഉയരം' : '2,600 FT Elevation',
-        locale === 'ml' ? 'സ്വാഭാവിക ചുണ്ണാമ്പുകല്ല്' : 'Limestone & Seasoned Teak',
+        locale === 'ml' ? 'പരമ്പരാഗത മുഖപ്പും ബാൽക്കണിയും' : 'Pitched Roof & Balcony',
+        locale === 'ml' ? 'കാർ പോർച്ച് & ഗേറ്റ്' : 'Car Porch & Gated Boundary',
+        locale === 'ml' ? '100% ക്ലിയർ ടൈറ്റിൽ' : '100% Clear Title',
       ],
       description:
         locale === 'ml'
-          ? 'പ്രകൃതിദത്ത കല്ലുകൾ, തേക്ക് തടി മേൽക്കൂരകൾ, കോടമഞ്ഞും പച്ചപ്പും കാണാവുന്ന 25 മീറ്റർ ഇൻഫിനിറ്റി പൂൾ എന്നിവയുള്ള മലയോര സങ്കേതം.'
-          : 'A dramatic cliffside sanctuary designed with natural limestone, seasoned teak timber eaves, and panoramic horizon vistas overlooking Chembra Peak valley.',
-      imageUrl: '/assets/villa-infinity-sunset.jpg',
+          ? 'സമകാലിക ശൈലിയിലുള്ള 2-നില കേരള വാസ്തുവിദ്യാ ഭവനം, കാർ പോർച്ച്, മതിൽക്കെട്ട് സൗകര്യം.'
+          : 'A newly constructed contemporary Kerala double-story residence with refined architectural woodwork, dedicated car porch, and secure boundary wall.',
+      imageUrl: '/assets/kerala-house-sale.png',
       featured: true,
     },
     {
       id: 'project-2',
+      title:
+        locale === 'ml'
+          ? 'മേപ്പാടി റെഡ്-സോയിൽ റെസിഡൻഷ്യൽ പ്ലോട്ട്'
+          : 'Meppadi Red-Soil Hillside Plot',
+      category: 'land',
+      status: 'ongoing',
+      location: locale === 'ml' ? 'മേപ്പാടി, വയനാട്' : 'Meppadi, Wayanad',
+      price: '₹ 45 Lakhs',
+      extent: '50 Cents · Road Frontage',
+      specs: [
+        locale === 'ml' ? 'വെട്ടുകല്ല് സംരക്ഷണ മതിൽ' : 'Laterite Retaining Wall',
+        locale === 'ml' ? 'ഉടൻ വീട് വെക്കാം' : 'Ready for Construction',
+        locale === 'ml' ? 'റവന്യൂ ക്ലിയറൻസ്' : 'Verified Deeds',
+      ],
+      description:
+        locale === 'ml'
+          ? 'വീട് പണിയാൻ ഒരുക്കിയ നിരപ്പായ പ്ലോട്ട്, വെട്ടുകല്ല് ബൗണ്ടറി വാളും റോഡ് പ്രവേശനവും.'
+          : 'A prime residential building plot with existing stone retaining structure, level building envelope, and full road frontage.',
+      imageUrl: '/assets/kerala-land-plot.png',
+    },
+    {
+      id: 'project-3',
       title:
         locale === 'ml'
           ? 'ബാണാസുര താഴ്‌വര പ്ലാന്റേഷൻ പ്ലോട്ടുകൾ'
@@ -107,35 +135,13 @@ export default async function ProjectsPage({
       specs: [
         locale === 'ml' ? 'തടാക സാമീപ്യം' : 'Direct Reservoir Frontage',
         locale === 'ml' ? 'കാപ്പിയും കുരുമുളകും' : 'Mature Coffee & Pepper',
-        locale === 'ml' ? 'ടാർ റോഡ് സൗകര്യം' : 'All-Weather Tarmac Access',
+        locale === 'ml' ? 'തണ്ണീർത്തട സാമീപ്യം' : 'Freshwater Spring Feeder',
       ],
       description:
         locale === 'ml'
-          ? 'ബാണാസുര അണക്കെട്ടിന്റെ താഴ്‌വരയിൽ സ്ഥിതി ചെയ്യുന്ന ഉന്നത നിലവാരത്തിലുള്ള പ്ലാന്റേഷൻ പ്ലോട്ടുകൾ.'
-          : 'Gently terraced agricultural land parcels nestled in the fertile Banasura foothills, featuring year-round freshwater spring feeds.',
-      imageUrl: '/assets/masterplanned-plots.jpg',
-    },
-    {
-      id: 'project-3',
-      title:
-        locale === 'ml'
-          ? 'ചെമ്പ്ര പീക്ക് ഹൈലാൻഡ് ഹിൽടോപ്പ്'
-          : 'Chembra Highland Hilltop Parcel',
-      category: 'land',
-      status: 'ongoing',
-      location: locale === 'ml' ? 'ചെമ്പ്ര അടിവാരം, വയനാട്' : 'Chembra Foothills, Wayanad',
-      price: '₹ 95 Lakhs',
-      extent: '1.75 Acres · Virgin Acreage',
-      specs: [
-        locale === 'ml' ? '360° കാഴ്‌ച' : '360° Panoramic Ridge',
-        locale === 'ml' ? 'തോട്ടം ഭൂമി' : 'Ecological Green Zone',
-        locale === 'ml' ? 'ക്ലിയർ ടൈറ്റിൽ' : 'Clear Ownership Deeds',
-      ],
-      description:
-        locale === 'ml'
-          ? 'ചെമ്പ്ര കൊടുമുടിയുടെ താഴ്‌വരയിലെ നിത്യഹരിത കാലാവസ്ഥയുള്ള സുരക്ഷിതമായ ലാൻഡ് പ്ലോട്ട്.'
-          : 'High-altitude virgin property offering complete solitude, cool mountain breeze, and clear title documentation suited for private retreats.',
-      imageUrl: '/assets/kerala-mist-sunrise.jpg',
+          ? 'ബാണാസുര അണക്കെട്ടിന്റെ താഴ്‌വരയിൽ സ്ഥിതി ചെയ്യുന്ന പ്ലാന്റേഷൻ ഭൂമി.'
+          : 'Gently terraced fertile plantation acreage featuring perennial freshwater springs and mature coffee holdings.',
+      imageUrl: '/assets/kerala-plantation-meadow.png',
     },
     {
       id: 'project-4',
@@ -143,7 +149,7 @@ export default async function ProjectsPage({
         locale === 'ml'
           ? 'ദി തേക്ക്‌വുഡ് പവിലിയൻ റെസിഡൻസ്'
           : 'The Teakwood Pavilion Residence',
-      category: 'residential',
+      category: 'house',
       status: 'completed',
       location: locale === 'ml' ? 'പുൽപ്പള്ളി, വയനാട്' : 'Pulpally, Wayanad',
       price: '₹ 2.45 Cr',
@@ -156,30 +162,30 @@ export default async function ProjectsPage({
       description:
         locale === 'ml'
           ? 'കേരള വാസ്തുശില്പ കലയും ആധുനിക ആഡംബരങ്ങളും ഒത്തുചേരുന്ന അതിമനോഹര ഭവനം.'
-          : 'A bespoke modern residence honoring vernacular Kerala proportions with exposed laterite detailing, deep overhangs, and sustainable courtyard ventilation.',
+          : 'A bespoke modern residence honoring vernacular Kerala proportions with exposed laterite detailing, deep overhangs, and courtyard ventilation.',
       imageUrl: '/assets/modern-timber-eaves.jpg',
     },
     {
       id: 'project-5',
       title:
         locale === 'ml'
-          ? 'ദി ഹൊറൈസൺ റിഡ്ജ് ഇൻഫിനിറ്റി റിട്രീറ്റ്'
-          : 'The Horizon Ridge Infinity Retreat',
-      category: 'residential',
+          ? 'ദി മിസ്ട്രൽ ഹൊറൈസൺ ഇൻഫിനിറ്റി വില്ല'
+          : 'The Mistral Horizon Infinity Villa',
+      category: 'house',
       status: 'upcoming',
-      location: locale === 'ml' ? 'മേപ്പാടി ഹൈറ്റ്സ്, വയനാട്' : 'Meppadi Heights, Wayanad',
-      price: '₹ 4.50 Cr',
-      extent: '3.2 Acres · Masterplanned Estate',
+      location: locale === 'ml' ? 'മേപ്പാടി, വയനാട്' : 'Meppadi, Wayanad',
+      price: '₹ 3.85 Cr',
+      extent: '2.8 Acres · 4 Bed Luxury Villa',
       specs: [
-        locale === 'ml' ? 'സ്വകാര്യ വില്ല സമുച്ചയം' : 'Ultra-Luxury Villa',
-        locale === 'ml' ? 'ഹെലിപാഡ് ആക്സസ്' : 'Helipad Access',
-        locale === 'ml' ? 'പ്രകൃതിദത്ത നീരുറവ' : 'Natural Spring Feeder',
+        locale === 'ml' ? '25 മീറ്റർ ഇൻഫിനിറ്റി പൂൾ' : '25m Infinity Pool',
+        locale === 'ml' ? 'സ്വാഭാവിക ചുണ്ണാമ്പുകല്ല്' : 'Limestone & Seasoned Teak',
+        locale === 'ml' ? 'താഴ്‌വര കാഴ്‌ച' : 'Panoramic Horizon Views',
       ],
       description:
         locale === 'ml'
-          ? 'മേപ്പാടിയിലെ മലനിരകളിൽ വരാനിരിക്കുന്ന അത്യാധുനിക ആർക്കിടെക്ചറൽ എസ്റ്റേറ്റ് റിട്രീറ്റ്.'
-          : 'An upcoming enclave of ultra-luxury hillside villas featuring cantilevered terraces, glass curtain walls, and uninterrupted views across the rainforest canopy.',
-      imageUrl: '/assets/infinity-pool-horizon.jpg',
+          ? 'പ്രകൃതിദത്ത കല്ലുകൾ, തേക്ക് തടി മേൽക്കൂരകൾ, ഇൻഫിനിറ്റി പൂളുള്ള ആഡംബര വില്ല.'
+          : 'Dramatic cliffside villa sanctuary designed with natural stone and teak timber eaves.',
+      imageUrl: '/assets/villa-infinity-sunset.jpg',
     },
     {
       id: 'project-6',
@@ -207,57 +213,58 @@ export default async function ProjectsPage({
       id: 'project-7',
       title:
         locale === 'ml'
-          ? 'ഗോൾഡൻ വാലി ഇക്കോ-എസ്റ്റേറ്റ് പ്ലോട്ടുകൾ'
-          : 'Golden Valley Eco-Estate Parcels',
-      category: 'land',
-      status: 'upcoming',
-      location: locale === 'ml' ? 'സുൽത്താൻ ബത്തേരി പീഠഭൂമി' : 'Sulthan Bathery Plateau',
-      price: '₹ 1.65 Cr',
-      extent: '8.0 Acres · Organic Canopy',
+          ? 'ബാണാസുര ലേക്‌സൈഡ് ഇക്കോ റിസോർട്ട്'
+          : 'Banasura Lakeside Eco-Resort & Retreat',
+      category: 'resort',
+      status: 'completed',
+      location: locale === 'ml' ? 'ബാണാസുര സാഗർ, വയനാട്' : 'Banasura Sagar, Wayanad',
+      price: '₹ 8.50 Cr',
+      extent: '9.5 Acres · Lake Frontage',
       specs: [
-        locale === 'ml' ? 'പ്രകൃതി സൗഹൃദം' : 'Organic Certified Soil',
-        locale === 'ml' ? 'വന്യജീവി സംരക്ഷിത വേലി' : 'Solar Perimeter Fencing',
-        locale === 'ml' ? 'വെള്ളവും വെളിച്ചവും' : 'Dedicated Electricity & Borewell',
+        locale === 'ml' ? 'പ്രവർത്തിക്കുന്ന റിസോർട്ട്' : 'Operational Luxury Resort',
+        locale === 'ml' ? 'തടാക തീര വില്ലകൾ' : 'Shoreline Villas & Towers',
+        locale === 'ml' ? 'ടൂറിസം ക്ലിയറൻസുകൾ' : 'Full Tourism Clearances',
       ],
       description:
         locale === 'ml'
-          ? 'സുൽത്താൻ ബത്തേരിയിൽ വരാനിരിക്കുന്ന വലിയ ഓർഗാനിക് ഇക്കോ പ്ലാന്റേഷൻ ഭൂമി.'
-          : 'Exclusive agricultural acreage surrounded by towering areca palms and fruit orchards, ideal for boutique agro-tourism or private farmsteads.',
-      imageUrl: '/assets/golden-sunset-palms.jpg',
+          ? 'തടാക തീരത്ത് സ്ഥിതി ചെയ്യുന്ന അത്യാധുനിക ആഡംബര റിസോർട്ട് സമുച്ചയം.'
+          : 'A premier operating lakefront hospitality asset with twin architectural towers, shoreline chalets, and recreation facilities.',
+      imageUrl: '/assets/kerala-resort-aerial.png',
     },
     {
       id: 'project-8',
       title:
         locale === 'ml'
-          ? 'വൈത്തിരി ഹിൽസൈഡ് ആർട്ടിസാൻ സ്യൂട്ടുകൾ'
-          : 'Vythiri Hillside Artisan Suites',
-      category: 'commercial',
-      status: 'completed',
+          ? 'വൈത്തിരി റെയിൻഫോറസ്റ്റ് റിസോർട്ട് & എസ്റ്റേറ്റ്'
+          : 'Vythiri Rainforest Resort & Estate',
+      category: 'resort',
+      status: 'ongoing',
       location: locale === 'ml' ? 'വൈത്തിരി താഴ്‌വര, വയനാട്' : 'Vythiri Valley, Wayanad',
       price: '₹ 5.20 Cr',
-      extent: '6 Boutique Cottages & Clubhouse',
+      extent: '6 Boutique Cottages & Stream',
       specs: [
-        locale === 'ml' ? 'പ്രവർത്തിക്കുന്ന റിസോർട്ട്' : 'Operational Eco-Resort',
-        locale === 'ml' ? 'മനോഹരമായ അരുവി' : 'Perennial Stream Edge',
-        locale === 'ml' ? 'അനുമതികൾ എല്ലാം ലഭ്യമാണ്' : 'All Licenses & Clearances',
+        locale === 'ml' ? 'വന സാമീപ്യം' : 'Rainforest Stream Edge',
+        locale === 'ml' ? 'ഇക്കോ-ടൂറിസം അനുമതി' : 'Approved Eco-Tourism Masterplan',
+        locale === 'ml' ? 'ഉയർന്ന ഒക്യുപൻസി' : 'High Year-Round Occupancy',
       ],
       description:
         locale === 'ml'
-          ? 'വൈത്തിരിയിലെ തണുത്ത കാലാവസ്ഥയിൽ സ്ഥിതി ചെയ്യുന്ന വിജയകരമായ ഇക്കോ-ടൂറിസം പ്രോജക്ട്.'
-          : 'Award-winning hospitality property consisting of six independent chalets, dining pavilion, and wellness lounge nestled along a natural forest stream.',
+          ? 'വൈത്തിരിയിലെ നിത്യഹരിത വനത്തിൽ സ്ഥിതി ചെയ്യുന്ന വിജയകരമായ ഇക്കോ റിട്രീറ്റ്.'
+          : 'An acclaimed boutique eco-resort property nestled alongside a perennial mountain stream in Vythiri.',
       imageUrl: '/assets/hero-cinematic.jpg',
     },
   ]
 
   // Combine CMS projects with curated showcase items
-  const allProjects =
-    cmsProjects.length >= 4 ? cmsProjects : showcaseProjects
+  const allProjects = cmsProjects.length >= 8 ? cmsProjects : [...cmsProjects, ...showcaseProjects]
 
   const catalogueLabels = {
     filterAll: t('projects.filterAll'),
+    filterHouse: t('projects.filterHouse'),
     filterResidential: t('projects.filterResidential'),
     filterCommercial: t('projects.filterCommercial'),
     filterLand: t('projects.filterLand'),
+    filterResort: t('projects.filterResort'),
     filterCompleted: t('projects.filterCompleted'),
     filterOngoing: t('projects.filterOngoing'),
     filterUpcoming: t('projects.filterUpcoming'),
@@ -265,9 +272,11 @@ export default async function ProjectsPage({
     statusOngoing: t('projects.statusOngoing'),
     statusUpcoming: t('projects.statusUpcoming'),
     statusAvailable: t('projects.statusAvailable'),
+    catHouse: t('projects.catHouse'),
     catResidential: t('projects.catResidential'),
     catCommercial: t('projects.catCommercial'),
     catLand: t('projects.catLand'),
+    catResort: t('projects.catResort'),
     viewDetails: t('projects.viewDetails'),
     enquire: t('projects.enquire'),
     emptyTitle: t('projects.emptyTitle'),
@@ -329,7 +338,11 @@ export default async function ProjectsPage({
       {/* ========================================================================= */}
       {/* INTERACTIVE CATALOGUE & ASYMMETRIC GRID                                   */}
       {/* ========================================================================= */}
-      <ProjectsCatalogue projects={allProjects} labels={catalogueLabels} />
+      <ProjectsCatalogue
+        projects={allProjects}
+        initialCategory={initialCategory}
+        labels={catalogueLabels}
+      />
 
       {/* ========================================================================= */}
       {/* CLOSING ADVISORY CONSULTATION STRIP                                       */}

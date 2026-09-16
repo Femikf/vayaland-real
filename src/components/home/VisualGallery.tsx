@@ -2,6 +2,7 @@
 
 import React, { useRef, useState, useEffect } from 'react'
 import Image from 'next/image'
+import { Link } from '@/i18n/routing'
 
 export interface GalleryItem {
   id: string
@@ -10,6 +11,7 @@ export interface GalleryItem {
   tag: string
   image: string
   aspect?: string
+  categoryLink?: string
 }
 
 interface VisualGalleryProps {
@@ -22,45 +24,51 @@ interface VisualGalleryProps {
 const DEFAULT_ITEMS: GalleryItem[] = [
   {
     id: '1',
-    title: 'Mistral Horizon Ridge',
-    location: 'Meppadi, Wayanad',
-    tag: 'Private Hillside Sanctuary',
-    image: '/assets/villa-infinity-sunset.jpg',
+    title: 'Contemporary Kerala Architectural Home',
+    location: 'Pulpally, Wayanad',
+    tag: 'House for Sale · Modern Kerala',
+    image: '/assets/kerala-house-sale.png',
+    categoryLink: '/projects?category=house',
   },
   {
     id: '2',
-    title: 'Banasura Foothills Plantation',
-    location: 'Padinjarathara, Wayanad',
-    tag: 'Masterplanned Land Parcels',
-    image: '/assets/masterplanned-plots.jpg',
+    title: 'Wayanad Terraced Red-Soil Plot',
+    location: 'Meppadi Foothills',
+    tag: 'Land for Sale · Ready to Build',
+    image: '/assets/kerala-land-plot.png',
+    categoryLink: '/projects?category=land',
   },
   {
     id: '3',
-    title: 'Emerald Morning Mist',
-    location: 'Chembra Peak Valley',
-    tag: 'High-Altitude Ecological Belt',
-    image: '/assets/kerala-mist-sunrise.jpg',
+    title: 'Lush Kerala Palm Grove & Meadow',
+    location: 'Sulthan Bathery Plateau',
+    tag: 'Land for Sale · Plantation Acreage',
+    image: '/assets/kerala-plantation-meadow.png',
+    categoryLink: '/projects?category=land',
   },
   {
     id: '4',
-    title: 'The Horizon Infinity Edge',
-    location: 'Meppadi Heights',
-    tag: 'Architectural Water Feature',
-    image: '/assets/infinity-pool-horizon.jpg',
+    title: 'Banasura Lakeside Hill Resort',
+    location: 'Banasura Sagar, Wayanad',
+    tag: 'Resort for Sale · Lake Panoramas',
+    image: '/assets/kerala-resort-aerial.png',
+    categoryLink: '/projects?category=resort',
   },
   {
     id: '5',
-    title: 'Handcrafted Limestone & Teak',
-    location: 'Pulpally Micro-Region',
-    tag: 'Artisanal Natural Materials',
-    image: '/assets/architectural-limestone.jpg',
+    title: 'Emerald Morning Mist Ridge',
+    location: 'Chembra Peak Valley',
+    tag: 'Highland Vantage · Ecological Belt',
+    image: '/assets/kerala-mist-sunrise.jpg',
+    categoryLink: '/projects?category=land',
   },
   {
     id: '6',
-    title: 'Golden Canopy Palms',
-    location: 'Sulthan Bathery Plateau',
-    tag: 'Tropical Plantation Canopy',
-    image: '/assets/golden-sunset-palms.jpg',
+    title: 'Handcrafted Laterite & Seasoned Teak',
+    location: 'Wayanad Highlands',
+    tag: 'House for Sale · Vernacular Craft',
+    image: '/assets/modern-timber-eaves.jpg',
+    categoryLink: '/projects?category=house',
   },
 ]
 
@@ -236,7 +244,22 @@ export function VisualGallery({
                     <span>{item.location}</span>
                   </span>
                 </div>
-                <h3 className="vl-gallery-card-title">{item.title}</h3>
+                <div className="vl-gallery-card-title-row">
+                  <h3 className="vl-gallery-card-title">{item.title}</h3>
+                  {item.categoryLink && (
+                    <Link
+                      href={item.categoryLink as any}
+                      className="vl-gallery-card-explore-btn"
+                      onClick={(e) => e.stopPropagation()}
+                      aria-label={`Explore ${item.title}`}
+                    >
+                      <span>Explore</span>
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="12" height="12">
+                        <path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </Link>
+                  )}
+                </div>
               </div>
             </div>
           ))}

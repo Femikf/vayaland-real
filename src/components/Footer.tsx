@@ -34,12 +34,12 @@ export function Footer() {
           </div>
 
           <div className="vl-footer-nav-col">
-            <h4 className="vl-footer-heading">{t('nav.projects')}</h4>
+            <h4 className="vl-footer-heading">{t('services.heroTitle')}</h4>
             <ul className="vl-footer-links">
-              <li><Link href="/gallery">{t('gallery.tabLand')}</Link></li>
-              <li><Link href="/gallery">{t('gallery.tabHouse')}</Link></li>
-              <li><Link href="/gallery">{t('gallery.tabCommercial')}</Link></li>
-              <li><Link href="/gallery">{t('home.viewAll')}</Link></li>
+              <li><Link href="/projects?category=house">{t('services.ecoPillar1')}</Link></li>
+              <li><Link href="/projects?category=land">{t('services.ecoPillar2')}</Link></li>
+              <li><Link href="/projects?category=commercial">{t('services.ecoPillar3')}</Link></li>
+              <li><Link href="/projects?category=resort">{t('services.ecoPillar4')}</Link></li>
             </ul>
           </div>
 
@@ -47,9 +47,8 @@ export function Footer() {
             <h4 className="vl-footer-heading">{t('footer.navigate')}</h4>
             <ul className="vl-footer-links">
               <li><Link href="/">{t('nav.home')}</Link></li>
-              <li><Link href="/about">{t('nav.about')}</Link></li>
               <li><Link href="/services">{t('nav.services')}</Link></li>
-              <li><Link href="/gallery">{t('nav.gallery')}</Link></li>
+              <li><Link href="/about">{t('nav.about')}</Link></li>
               <li><Link href="/contact">{t('nav.contact')}</Link></li>
             </ul>
           </div>

@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { Link } from '@/i18n/routing'
 import { waLink, WA_NUMBER } from '@/lib/site'
 
-export type ProjectCategory = 'residential' | 'commercial' | 'land'
+export type ProjectCategory = 'house' | 'residential' | 'commercial' | 'land' | 'resort'
 export type ProjectStatus = 'completed' | 'ongoing' | 'upcoming'
 
 export interface ProjectItem {
@@ -24,20 +24,25 @@ export interface ProjectItem {
 
 export type FilterKey =
   | 'all'
+  | 'house'
   | 'residential'
   | 'commercial'
   | 'land'
+  | 'resort'
   | 'completed'
   | 'ongoing'
   | 'upcoming'
 
 interface ProjectsCatalogueProps {
   projects: ProjectItem[]
+  initialCategory?: string
   labels: {
     filterAll: string
+    filterHouse?: string
     filterResidential: string
     filterCommercial: string
     filterLand: string
+    filterResort?: string
     filterCompleted: string
     filterOngoing: string
     filterUpcoming: string
@@ -45,9 +50,11 @@ interface ProjectsCatalogueProps {
     statusOngoing: string
     statusUpcoming: string
     statusAvailable?: string
+    catHouse?: string
     catResidential: string
     catCommercial: string
     catLand: string
+    catResort?: string
     viewDetails: string
     enquire: string
     emptyTitle: string
@@ -59,17 +66,41 @@ interface ProjectsCatalogueProps {
   }
 }
 
-export function ProjectsCatalogue({ projects, labels }: ProjectsCatalogueProps) {
-  const [activeFilter, setActiveFilter] = useState<FilterKey>('all')
+export function ProjectsCatalogue({ projects, initialCategory, labels }: ProjectsCatalogueProps) {
+  // Normalize initial category
+  const getInitialFilter = (): FilterKey => {
+    if (!initialCategory) return 'all'
+    const cat = initialCategory.toLowerCase()
+    if (cat === 'house' || cat === 'residential') return 'house'
+    if (cat === 'land') return 'land'
+    if (cat === 'commercial') return 'commercial'
+    if (cat === 'resort') return 'resort'
+    return 'all'
+  }
+
+  const [activeFilter, setActiveFilter] = useState<FilterKey>(getInitialFilter())
   const [isTransitioning, setIsTransitioning] = useState(false)
 
-  // Calculate dynamic counts for all 7 filter tabs
+  // Sync state if initialCategory prop changes from external router
+  React.useEffect(() => {
+    if (initialCategory) {
+      const cat = initialCategory.toLowerCase()
+      if (cat === 'house' || cat === 'residential') setActiveFilter('house')
+      else if (cat === 'land') setActiveFilter('land')
+      else if (cat === 'commercial') setActiveFilter('commercial')
+      else if (cat === 'resort') setActiveFilter('resort')
+    }
+  }, [initialCategory])
+
+  // Calculate dynamic counts for all filter tabs
   const filterCounts = useMemo(() => {
     return {
       all: projects.length,
-      residential: projects.filter((p) => p.category === 'residential').length,
+      house: projects.filter((p) => p.category === 'house' || p.category === 'residential').length,
+      residential: projects.filter((p) => p.category === 'house' || p.category === 'residential').length,
       commercial: projects.filter((p) => p.category === 'commercial').length,
       land: projects.filter((p) => p.category === 'land').length,
+      resort: projects.filter((p) => p.category === 'resort').length,
       completed: projects.filter((p) => p.status === 'completed').length,
       ongoing: projects.filter((p) => p.status === 'ongoing').length,
       upcoming: projects.filter((p) => p.status === 'upcoming').length,
@@ -79,12 +110,15 @@ export function ProjectsCatalogue({ projects, labels }: ProjectsCatalogueProps) 
   // Filter projects based on activeFilter
   const filteredProjects = useMemo(() => {
     switch (activeFilter) {
+      case 'house':
       case 'residential':
-        return projects.filter((p) => p.category === 'residential')
+        return projects.filter((p) => p.category === 'house' || p.category === 'residential')
       case 'commercial':
         return projects.filter((p) => p.category === 'commercial')
       case 'land':
         return projects.filter((p) => p.category === 'land')
+      case 'resort':
+        return projects.filter((p) => p.category === 'resort')
       case 'completed':
         return projects.filter((p) => p.status === 'completed')
       case 'ongoing':
@@ -103,17 +137,32 @@ export function ProjectsCatalogue({ projects, labels }: ProjectsCatalogueProps) 
     setTimeout(() => {
       setActiveFilter(filter)
       setIsTransitioning(false)
+      // Sync URL search params without reload
+      if (typeof window !== 'undefined') {
+        const url = new URL(window.location.href)
+        if (filter === 'all' || filter === 'completed' || filter === 'ongoing' || filter === 'upcoming') {
+          url.searchParams.delete('category')
+        } else if (filter === 'house' || filter === 'residential') {
+          url.searchParams.set('category', 'house')
+        } else {
+          url.searchParams.set('category', filter)
+        }
+        window.history.replaceState({}, '', url.toString())
+      }
     }, 180)
   }
 
   const getCategoryLabel = (category: ProjectCategory) => {
     switch (category) {
+      case 'house':
       case 'residential':
-        return labels.catResidential
+        return labels.catHouse || labels.catResidential
       case 'commercial':
         return labels.catCommercial
       case 'land':
         return labels.catLand
+      case 'resort':
+        return labels.catResort || 'Resort'
       default:
         return category
     }
@@ -147,11 +196,12 @@ export function ProjectsCatalogue({ projects, labels }: ProjectsCatalogueProps) 
 
   const filterTabs: { key: FilterKey; label: string }[] = [
     { key: 'all', label: labels.filterAll },
-    { key: 'residential', label: labels.filterResidential },
-    { key: 'commercial', label: labels.filterCommercial },
+    { key: 'house', label: labels.filterHouse || labels.filterResidential },
     { key: 'land', label: labels.filterLand },
-    { key: 'completed', label: labels.filterCompleted },
+    { key: 'commercial', label: labels.filterCommercial },
+    { key: 'resort', label: labels.filterResort || 'Resort for Sale' },
     { key: 'ongoing', label: labels.filterOngoing },
+    { key: 'completed', label: labels.filterCompleted },
     { key: 'upcoming', label: labels.filterUpcoming },
   ]
 
