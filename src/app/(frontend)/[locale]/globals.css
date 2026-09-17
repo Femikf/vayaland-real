@@ -7191,3 +7191,800 @@ textarea:focus-visible {
   }
 }
 
+/* =============================================================================
+   BUY & SELL PROPERTY VIA VAYALAND — STYLES & INTERACTIVE CONTROLS
+   ============================================================================= */
+
+/* 1. Global Floating WhatsApp Widget */
+.vl-float-wa {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 999;
+  font-family: var(--font-display, var(--font-body));
+}
+
+.vl-float-wa__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: 999px;
+  padding: 12px 20px 12px 14px;
+  box-shadow: 0 10px 28px rgba(18, 140, 126, 0.45), 0 2px 6px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease;
+}
+
+.vl-float-wa__btn:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 14px 34px rgba(18, 140, 126, 0.55), 0 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+.vl-float-wa__pulse {
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  border-radius: 999px;
+  border: 2px solid rgba(37, 211, 102, 0.6);
+  animation: vlPulse 2.4s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
+  pointer-events: none;
+}
+
+@keyframes vlPulse {
+  0% { transform: scale(0.96); opacity: 0.8; }
+  50% { transform: scale(1.18); opacity: 0; }
+  100% { transform: scale(1.24); opacity: 0; }
+}
+
+.vl-float-wa__btn-label {
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+.vl-float-wa__card {
+  position: absolute;
+  bottom: calc(100% + 14px);
+  right: 0;
+  width: 340px;
+  max-width: calc(100vw - 36px);
+  background: rgba(13, 26, 28, 0.96);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 20px;
+  padding: 22px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  animation: vlFadeUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes vlFadeUp {
+  from { opacity: 0; transform: translateY(12px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.vl-float-wa__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.vl-float-wa__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(37, 211, 102, 0.15);
+  border: 1px solid rgba(37, 211, 102, 0.3);
+  color: #25D366;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 3px 8px;
+  border-radius: 999px;
+  margin-bottom: 6px;
+}
+
+.vl-float-wa__online-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #25D366;
+  box-shadow: 0 0 6px #25D366;
+}
+
+.vl-float-wa__title {
+  color: #ffffff;
+  font-size: 1.06rem;
+  font-weight: 700;
+  margin: 0 0 4px;
+  line-height: 1.3;
+}
+
+.vl-float-wa__subtitle {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 0.8rem;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.vl-float-wa__close {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.7);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.vl-float-wa__close:hover {
+  background: rgba(255, 255, 255, 0.18);
+  color: #ffffff;
+}
+
+.vl-float-wa__options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.vl-float-wa__option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  text-decoration: none;
+  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+  border: 1px solid transparent;
+}
+
+.vl-float-wa__option--buy {
+  background: rgba(8, 80, 86, 0.25);
+  border-color: rgba(8, 80, 86, 0.45);
+}
+
+.vl-float-wa__option--buy:hover {
+  background: rgba(8, 80, 86, 0.45);
+  border-color: rgba(37, 211, 102, 0.5);
+  transform: translateX(4px);
+}
+
+.vl-float-wa__option--sell {
+  background: rgba(226, 140, 36, 0.12);
+  border-color: rgba(226, 140, 36, 0.35);
+}
+
+.vl-float-wa__option--sell:hover {
+  background: rgba(226, 140, 36, 0.25);
+  border-color: rgba(244, 180, 26, 0.6);
+  transform: translateX(4px);
+}
+
+.vl-float-wa__option-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.vl-float-wa__option--buy .vl-float-wa__option-icon {
+  background: rgba(37, 211, 102, 0.2);
+  color: #25D366;
+}
+
+.vl-float-wa__option--sell .vl-float-wa__option-icon {
+  background: rgba(226, 140, 36, 0.25);
+  color: #F4B41A;
+}
+
+.vl-float-wa__option-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.vl-float-wa__option-title {
+  color: #ffffff;
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.vl-float-wa__option-sub {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.74rem;
+  line-height: 1.3;
+}
+
+.vl-float-wa__option-arrow {
+  color: rgba(255, 255, 255, 0.4);
+  transition: transform 0.2s ease, color 0.2s ease;
+  flex-shrink: 0;
+}
+
+.vl-float-wa__option:hover .vl-float-wa__option-arrow {
+  color: #ffffff;
+  transform: translateX(3px);
+}
+
+.vl-float-wa__footer {
+  margin-top: 14px;
+  text-align: center;
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.4);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* 2. Contact Page Intent Tabs & Dual WhatsApp Cards */
+.cf-intent-group {
+  margin-bottom: 20px;
+}
+
+.cf-intent-label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--vl-charcoal);
+  margin-bottom: 8px;
+}
+
+.cf-intent-tabs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  background: rgba(8, 80, 86, 0.06);
+  padding: 6px;
+  border-radius: 12px;
+  border: 1px solid rgba(8, 80, 86, 0.12);
+}
+
+.cf-intent-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 8px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  color: var(--vl-charcoal);
+  font-size: 0.84rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cf-intent-btn--active {
+  background: var(--vl-teal);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(8, 80, 86, 0.25);
+}
+
+.cf-intent-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.6;
+}
+
+.cf-intent-btn--active .cf-intent-dot {
+  opacity: 1;
+  background: var(--vl-gold);
+}
+
+.contact-dual-wa {
+  background: #ffffff;
+  border: 1px solid rgba(8, 80, 86, 0.12);
+  border-radius: 18px;
+  padding: 22px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04);
+}
+
+.contact-dual-wa__title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--vl-charcoal);
+  margin: 0 0 4px;
+}
+
+.contact-dual-wa__sub {
+  font-size: 0.82rem;
+  color: #666666;
+  margin: 0 0 16px;
+}
+
+.contact-dual-wa__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.contact-wa-card {
+  display: flex;
+  flex-direction: column;
+  padding: 14px;
+  border-radius: 14px;
+  text-decoration: none;
+  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+  border: 1px solid transparent;
+}
+
+.contact-wa-card--buy {
+  background: rgba(8, 80, 86, 0.06);
+  border-color: rgba(8, 80, 86, 0.18);
+  color: var(--vl-teal);
+}
+
+.contact-wa-card--buy:hover {
+  background: rgba(8, 80, 86, 0.12);
+  border-color: var(--vl-teal);
+  transform: translateY(-2px);
+}
+
+.contact-wa-card--sell {
+  background: rgba(226, 140, 36, 0.08);
+  border-color: rgba(226, 140, 36, 0.25);
+  color: #9C5A08;
+}
+
+.contact-wa-card--sell:hover {
+  background: rgba(226, 140, 36, 0.16);
+  border-color: var(--vl-amber);
+  transform: translateY(-2px);
+}
+
+.contact-wa-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.contact-wa-card__tag {
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.contact-wa-card__icon {
+  flex-shrink: 0;
+}
+
+.contact-wa-card__cta {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--vl-charcoal);
+  margin-bottom: 4px;
+}
+
+.contact-wa-card__desc {
+  font-size: 0.74rem;
+  color: #666666;
+  margin: 0;
+  line-height: 1.35;
+}
+
+.contact-call-row {
+  text-align: center;
+}
+
+.contact-call-row .btn-ghost {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+}
+
+/* 3. Homepage Section 2.5: Buy & Sell Highlight Section */
+.vl-buysell-section {
+  padding: 70px 0;
+  background: linear-gradient(180deg, #F8F6F0 0%, #FFFFFF 100%);
+  border-top: 1px solid rgba(8, 80, 86, 0.08);
+  border-bottom: 1px solid rgba(8, 80, 86, 0.08);
+}
+
+.vl-buysell-header {
+  text-align: center;
+  max-width: 760px;
+  margin: 0 auto 50px;
+}
+
+.vl-buysell-title {
+  font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+  font-weight: 800;
+  color: var(--vl-charcoal);
+  line-height: 1.25;
+  margin: 12px 0 16px;
+}
+
+.vl-buysell-title-line {
+  display: block;
+}
+
+.vl-buysell-sub {
+  font-size: 1.05rem;
+  color: #555555;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.vl-buysell-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+
+.vl-buysell-card {
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 40px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(8, 80, 86, 0.1);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.vl-buysell-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.09);
+}
+
+.vl-buysell-card--buy {
+  border-top: 5px solid var(--vl-teal);
+}
+
+.vl-buysell-card--sell {
+  border-top: 5px solid var(--vl-amber);
+}
+
+.vl-buysell-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.vl-buysell-badge {
+  font-size: 0.74rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 5px 12px;
+  border-radius: 999px;
+}
+
+.vl-buysell-badge--buy {
+  background: rgba(8, 80, 86, 0.1);
+  color: var(--vl-teal);
+}
+
+.vl-buysell-badge--sell {
+  background: rgba(226, 140, 36, 0.12);
+  color: var(--vl-amber);
+}
+
+.vl-buysell-icon-wrap {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vl-buysell-card--buy .vl-buysell-icon-wrap {
+  background: rgba(8, 80, 86, 0.08);
+  color: var(--vl-teal);
+}
+
+.vl-buysell-card--sell .vl-buysell-icon-wrap {
+  background: rgba(226, 140, 36, 0.1);
+  color: var(--vl-amber);
+}
+
+.vl-buysell-card-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--vl-charcoal);
+  margin: 0 0 12px;
+}
+
+.vl-buysell-card-desc {
+  font-size: 0.96rem;
+  color: #555555;
+  line-height: 1.6;
+  margin: 0 0 24px;
+}
+
+.vl-buysell-points {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+}
+
+.vl-buysell-points li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.9rem;
+  color: var(--vl-charcoal);
+  line-height: 1.45;
+}
+
+.vl-buysell-points li svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.vl-buysell-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+/* 4. Services Page Stage 3.5: For Property Owners */
+.vl-services-seller-section {
+  padding: 80px 0;
+  background: var(--vl-charcoal);
+  color: #ffffff;
+  position: relative;
+  overflow: hidden;
+}
+
+.vl-seller-box {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 28px;
+  padding: 50px;
+}
+
+.vl-seller-header {
+  max-width: 800px;
+  margin-bottom: 40px;
+}
+
+.vl-seller-title {
+  font-size: clamp(1.8rem, 3.2vw, 2.5rem);
+  font-weight: 800;
+  color: #ffffff;
+  margin: 12px 0 16px;
+  line-height: 1.25;
+}
+
+.vl-seller-lead {
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.65;
+  margin: 0;
+}
+
+.vl-seller-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+.vl-seller-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 24px;
+}
+
+.vl-seller-num {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--vl-amber);
+  margin-bottom: 12px;
+}
+
+.vl-seller-card-title {
+  color: #ffffff;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0 0 8px;
+}
+
+.vl-seller-card-desc {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 0.86rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.vl-seller-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* 5. About Page Dual Pillars */
+.vl-about-dual-pillars {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(8, 80, 86, 0.12);
+}
+
+.vl-dual-pillars-heading {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--vl-charcoal);
+  margin: 0 0 16px;
+}
+
+.vl-dual-pillars-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.vl-dual-pillar-card {
+  padding: 18px;
+  border-radius: 14px;
+  border: 1px solid rgba(8, 80, 86, 0.12);
+}
+
+.vl-dual-pillar-card--buyer {
+  background: rgba(8, 80, 86, 0.04);
+  border-left: 4px solid var(--vl-teal);
+}
+
+.vl-dual-pillar-card--seller {
+  background: rgba(226, 140, 36, 0.05);
+  border-left: 4px solid var(--vl-amber);
+}
+
+.vl-dual-pillar-tag {
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #888888;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.vl-dual-pillar-title {
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: var(--vl-charcoal);
+  margin: 0 0 6px;
+}
+
+.vl-dual-pillar-desc {
+  font-size: 0.82rem;
+  color: #555555;
+  line-height: 1.45;
+  margin: 0;
+}
+
+/* 6. Footer WhatsApp Action Pills */
+.vl-footer-wa-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.vl-footer-wa-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 7px 12px;
+  border-radius: 999px;
+  transition: all 0.2s ease;
+  width: fit-content;
+}
+
+.vl-footer-wa-pill--buy {
+  background: rgba(37, 211, 102, 0.12);
+  color: #25D366;
+  border: 1px solid rgba(37, 211, 102, 0.25);
+}
+
+.vl-footer-wa-pill--buy:hover {
+  background: rgba(37, 211, 102, 0.22);
+  color: #ffffff;
+}
+
+.vl-footer-wa-pill--sell {
+  background: rgba(226, 140, 36, 0.15);
+  color: var(--vl-gold);
+  border: 1px solid rgba(226, 140, 36, 0.3);
+}
+
+.vl-footer-wa-pill--sell:hover {
+  background: rgba(226, 140, 36, 0.25);
+  color: #ffffff;
+}
+
+.vl-wa-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+
+/* Responsive adjustments for Buy/Sell sections */
+@media (max-width: 900px) {
+  .vl-buysell-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .vl-seller-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .vl-seller-box {
+    padding: 30px 20px;
+  }
+  .contact-dual-wa__grid {
+    grid-template-columns: 1fr;
+  }
+  .vl-dual-pillars-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .vl-buysell-card {
+    padding: 24px;
+  }
+  .vl-seller-grid {
+    grid-template-columns: 1fr;
+  }
+  .cf-intent-tabs {
+    grid-template-columns: 1fr;
+  }
+  .vl-float-wa {
+    bottom: 20px;
+    right: 20px;
+  }
+  .vl-float-wa__btn-label {
+    display: none;
+  }
+  .vl-float-wa__btn {
+    padding: 12px;
+  }
+}
+
+

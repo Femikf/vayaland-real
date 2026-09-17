@@ -12,6 +12,7 @@ export async function POST(req: Request) {
         name: body.name || '',
         phone: body.phone || '',
         email: body.email || '',
+        service: body.service || body.intent || '',
         message: body.message || '',
       },
     })

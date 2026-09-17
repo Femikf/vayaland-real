@@ -3,7 +3,7 @@ import config from '@payload-config'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import Image from 'next/image'
 import { Link } from '@/i18n/routing'
-import { waLink, mailLink, WA_NUMBER } from '@/lib/site'
+import { waLink, waBuyLink, waSellLink, mailLink, WA_NUMBER } from '@/lib/site'
 import { VisualGallery } from '@/components/home/VisualGallery'
 import { HeroSlider } from '@/components/home/HeroSlider'
 
@@ -257,6 +257,131 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                     <span>Wayanad, Kerala · 11.6854° N, 76.1320° E</span>
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ========================================================================= */}
+      {/* SECTION 2.5: BUY & SELL DUAL ENGAGEMENT WITH VAYALAND                     */}
+      {/* ========================================================================= */}
+      <section className="vl-buysell-section">
+        <div className="vl-container">
+          <div className="vl-buysell-header">
+            <span className="vl-editorial-eyebrow">
+              <span className="vl-eyebrow-line" />
+              <span>{t('home.buySellTag')}</span>
+            </span>
+            <h2 className="vl-buysell-title">
+              {t('home.buySellTitle').split('\n').map((line: string, i: number) => (
+                <span key={i} className="vl-buysell-title-line">
+                  {line}
+                </span>
+              ))}
+            </h2>
+            <p className="vl-buysell-sub">{t('home.buySellSub')}</p>
+          </div>
+
+          <div className="vl-buysell-grid">
+            {/* CARD 1: FOR BUYERS */}
+            <div className="vl-buysell-card vl-buysell-card--buy">
+              <div className="vl-buysell-card-top">
+                <span className="vl-buysell-badge vl-buysell-badge--buy">{t('home.forBuyersBadge')}</span>
+                <div className="vl-buysell-icon-wrap" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.8">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                    <polyline points="9 22 9 12 15 12 15 22" />
+                  </svg>
+                </div>
+              </div>
+
+              <h3 className="vl-buysell-card-title">{t('home.forBuyersTitle')}</h3>
+              <p className="vl-buysell-card-desc">{t('home.forBuyersDesc')}</p>
+
+              <ul className="vl-buysell-points">
+                <li>
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="var(--vl-teal)" strokeWidth="2.2"><polyline points="20 6 9 17 4 12" /></svg>
+                  <span>{t('home.buyerPoint1')}</span>
+                </li>
+                <li>
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="var(--vl-teal)" strokeWidth="2.2"><polyline points="20 6 9 17 4 12" /></svg>
+                  <span>{t('home.buyerPoint2')}</span>
+                </li>
+                <li>
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="var(--vl-teal)" strokeWidth="2.2"><polyline points="20 6 9 17 4 12" /></svg>
+                  <span>{t('home.buyerPoint3')}</span>
+                </li>
+              </ul>
+
+              <div className="vl-buysell-actions">
+                <Link href="/projects" className="vl-btn-gold">
+                  <span>{t('home.buyerBtnExplore')}</span>
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </Link>
+                <a
+                  href={waBuyLink(locale)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="vl-btn-whatsapp-editorial"
+                >
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                    <path d="M12 2a10 10 0 0 0-8.6 15l-1.4 5 5.2-1.4A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-3-.2-.3A8 8 0 1 1 12 20zm4.4-5.9c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.5.1-.6.8-.8 1-.3.1-.5 0a6.5 6.5 0 0 1-1.9-1.2 7.3 7.3 0 0 1-1.4-1.7c-.1-.2 0-.4.1-.5l.4-.4.2-.4a.4.4 0 0 0 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4H8a.9.9 0 0 0-.7.3 2.8 2.8 0 0 0-.9 2.1 4.9 4.9 0 0 0 1 2.6 11 11 0 0 0 4.3 3.8c2.3 1 2.3.7 2.7.6a2.5 2.5 0 0 0 1.6-1.1 2 2 0 0 0 .1-1.1c0-.1-.2-.2-.4-.3z" />
+                  </svg>
+                  <span>{t('home.buyerBtnWa')}</span>
+                </a>
+              </div>
+            </div>
+
+            {/* CARD 2: FOR SELLERS */}
+            <div className="vl-buysell-card vl-buysell-card--sell">
+              <div className="vl-buysell-card-top">
+                <span className="vl-buysell-badge vl-buysell-badge--sell">{t('home.forSellersBadge')}</span>
+                <div className="vl-buysell-icon-wrap" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.8">
+                    <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                  </svg>
+                </div>
+              </div>
+
+              <h3 className="vl-buysell-card-title">{t('home.forSellersTitle')}</h3>
+              <p className="vl-buysell-card-desc">{t('home.forSellersDesc')}</p>
+
+              <ul className="vl-buysell-points">
+                <li>
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="var(--vl-amber)" strokeWidth="2.2"><polyline points="20 6 9 17 4 12" /></svg>
+                  <span>{t('home.sellerPoint1')}</span>
+                </li>
+                <li>
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="var(--vl-amber)" strokeWidth="2.2"><polyline points="20 6 9 17 4 12" /></svg>
+                  <span>{t('home.sellerPoint2')}</span>
+                </li>
+                <li>
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="var(--vl-amber)" strokeWidth="2.2"><polyline points="20 6 9 17 4 12" /></svg>
+                  <span>{t('home.sellerPoint3')}</span>
+                </li>
+              </ul>
+
+              <div className="vl-buysell-actions">
+                <Link href="/contact" className="vl-btn-gold">
+                  <span>{t('home.sellerBtnList')}</span>
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </Link>
+                <a
+                  href={waSellLink(locale)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="vl-btn-whatsapp-editorial"
+                >
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                    <path d="M12 2a10 10 0 0 0-8.6 15l-1.4 5 5.2-1.4A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-3-.2-.3A8 8 0 1 1 12 20zm4.4-5.9c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.5.1-.6.8-.8 1-.3.1-.5 0a6.5 6.5 0 0 1-1.9-1.2 7.3 7.3 0 0 1-1.4-1.7c-.1-.2 0-.4.1-.5l.4-.4.2-.4a.4.4 0 0 0 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4H8a.9.9 0 0 0-.7.3 2.8 2.8 0 0 0-.9 2.1 4.9 4.9 0 0 0 1 2.6 11 11 0 0 0 4.3 3.8c2.3 1 2.3.7 2.7.6a2.5 2.5 0 0 0 1.6-1.1 2 2 0 0 0 .1-1.1c0-.1-.2-.2-.4-.3z" />
+                  </svg>
+                  <span>{t('home.sellerBtnWa')}</span>
+                </a>
               </div>
             </div>
           </div>

@@ -4,7 +4,7 @@ import { getPayload } from 'payload'
 import config from '@payload-config'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { Link } from '@/i18n/routing'
-import { waLink, WA_NUMBER, MAIL } from '@/lib/site'
+import { waLink, waSellLink, WA_NUMBER, MAIL } from '@/lib/site'
 
 interface ServiceItem {
   id: string
@@ -324,6 +324,66 @@ export default async function ServicesPage({
           )
         })}
       </div>
+
+      {/* ========================================================================= */}
+      {/* STAGE 3.5: FOR PROPERTY OWNERS · LIST & SELL WITH VAYALAND               */}
+      {/* ========================================================================= */}
+      <section className="vl-services-seller-section" aria-label="For Property Owners">
+        <div className="vl-container">
+          <div className="vl-seller-box">
+            <div className="vl-seller-header">
+              <span className="vl-cta-badge">{t('sellerSectionTag')}</span>
+              <h2 className="vl-seller-title">{t('sellerSectionTitle')}</h2>
+              <p className="vl-seller-lead">{t('sellerSectionLead')}</p>
+            </div>
+
+            <div className="vl-seller-grid">
+              <div className="vl-seller-card">
+                <div className="vl-seller-num">01</div>
+                <h3 className="vl-seller-card-title">{t('sellerCard1Title')}</h3>
+                <p className="vl-seller-card-desc">{t('sellerCard1Desc')}</p>
+              </div>
+
+              <div className="vl-seller-card">
+                <div className="vl-seller-num">02</div>
+                <h3 className="vl-seller-card-title">{t('sellerCard2Title')}</h3>
+                <p className="vl-seller-card-desc">{t('sellerCard2Desc')}</p>
+              </div>
+
+              <div className="vl-seller-card">
+                <div className="vl-seller-num">03</div>
+                <h3 className="vl-seller-card-title">{t('sellerCard3Title')}</h3>
+                <p className="vl-seller-card-desc">{t('sellerCard3Desc')}</p>
+              </div>
+
+              <div className="vl-seller-card">
+                <div className="vl-seller-num">04</div>
+                <h3 className="vl-seller-card-title">{t('sellerCard4Title')}</h3>
+                <p className="vl-seller-card-desc">{t('sellerCard4Desc')}</p>
+              </div>
+            </div>
+
+            <div className="vl-seller-actions">
+              <a
+                href={waSellLink(locale)}
+                className="vl-services-btn-solid"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+                  <path d="M12 2a10 10 0 0 0-8.6 15l-1.4 5 5.2-1.4A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-3-.2-.3A8 8 0 1 1 12 20zm4.4-5.9c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.5.1-.6.8-.8 1-.3.1-.5 0a6.5 6.5 0 0 1-1.9-1.2 7.3 7.3 0 0 1-1.4-1.7c-.1-.2 0-.4.1-.5l.4-.4.2-.4a.4.4 0 0 0 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4H8a.9.9 0 0 0-.7.3 2.8 2.8 0 0 0-.9 2.1 4.9 4.9 0 0 0 1 2.6 11 11 0 0 0 4.3 3.8c2.3 1 2.3.7 2.7.6a2.5 2.5 0 0 0 1.6-1.1 2 2 0 0 0 .1-1.1c0-.1-.2-.2-.4-.3z" />
+                </svg>
+                <span>{t('sellerCtaWa')}</span>
+              </a>
+
+              <Link href="/contact" className="vl-services-btn-outline">
+                <span>{t('sellerCtaContact')}</span>
+                <span className="vl-cta-arrow" aria-hidden="true">↗</span>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* ========================================================================= */}
       {/* STAGE 4: CONSULTATION & ENQUIRY ADVISORY CLOSING BANNER                   */}

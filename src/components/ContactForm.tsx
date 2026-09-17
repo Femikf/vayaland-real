@@ -4,14 +4,23 @@ import { useState } from 'react'
 import { useTranslations } from 'next-intl'
 
 type Status = 'idle' | 'sending' | 'success' | 'error'
+type Intent = 'buy' | 'sell' | 'general'
 
 export function ContactForm() {
   const t = useTranslations('contact')
   const [status, setStatus] = useState<Status>('idle')
+  const [intent, setIntent] = useState<Intent>('buy')
   const [form, setForm] = useState({ name: '', email: '', phone: '', message: '' })
 
   const set = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
     setForm(f => ({ ...f, [k]: e.target.value }))
+
+  const messagePlaceholder =
+    intent === 'buy'
+      ? t('formMsgPlaceholderBuy')
+      : intent === 'sell'
+        ? t('formMsgPlaceholderSell')
+        : t('formMsgPlaceholderGeneral')
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -21,7 +30,11 @@ export function ContactForm() {
       const res = await fetch('/api/enquiry', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
+        body: JSON.stringify({
+          ...form,
+          intent,
+          service: intent === 'buy' ? 'Buy Property' : intent === 'sell' ? 'Sell Property' : 'General Enquiry',
+        }),
       })
       setStatus(res.ok ? 'success' : 'error')
       if (res.ok) setForm({ name: '', email: '', phone: '', message: '' })
@@ -42,6 +55,43 @@ export function ContactForm() {
         </div>
       ) : (
         <form onSubmit={handleSubmit} className="contact-form" noValidate>
+          {/* Intent Selector Tabs */}
+          <div className="cf-intent-group">
+            <span className="cf-intent-label">{t('intentLabel')}</span>
+            <div className="cf-intent-tabs" role="radiogroup" aria-label={t('intentLabel')}>
+              <button
+                type="button"
+                role="radio"
+                aria-checked={intent === 'buy'}
+                className={`cf-intent-btn ${intent === 'buy' ? 'cf-intent-btn--active' : ''}`}
+                onClick={() => setIntent('buy')}
+              >
+                <span className="cf-intent-dot" aria-hidden="true" />
+                {t('intentBuy')}
+              </button>
+              <button
+                type="button"
+                role="radio"
+                aria-checked={intent === 'sell'}
+                className={`cf-intent-btn ${intent === 'sell' ? 'cf-intent-btn--active' : ''}`}
+                onClick={() => setIntent('sell')}
+              >
+                <span className="cf-intent-dot" aria-hidden="true" />
+                {t('intentSell')}
+              </button>
+              <button
+                type="button"
+                role="radio"
+                aria-checked={intent === 'general'}
+                className={`cf-intent-btn ${intent === 'general' ? 'cf-intent-btn--active' : ''}`}
+                onClick={() => setIntent('general')}
+              >
+                <span className="cf-intent-dot" aria-hidden="true" />
+                {t('intentGeneral')}
+              </button>
+            </div>
+          </div>
+
           <div className="cf-field">
             <label htmlFor="cf-name" className="cf-label sr-only">
               {t('formName')}
@@ -100,7 +150,7 @@ export function ContactForm() {
               id="cf-message"
               name="message"
               className="cf-input cf-textarea"
-              placeholder={t('formMessage')}
+              placeholder={messagePlaceholder}
               value={form.message}
               onChange={set('message')}
               rows={4}

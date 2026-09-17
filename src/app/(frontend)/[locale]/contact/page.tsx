@@ -1,5 +1,5 @@
 import { setRequestLocale, getTranslations } from 'next-intl/server'
-import { WA_NUMBER, ALT_NUMBER, MAIL, waLink } from '@/lib/site'
+import { WA_NUMBER, ALT_NUMBER, MAIL, waBuyLink, waSellLink } from '@/lib/site'
 import { ContactForm } from '@/components/ContactForm'
 
 export default async function ContactPage({ params }: { params: Promise<{ locale: string }> }) {
@@ -7,7 +7,7 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
   setRequestLocale(locale)
   const t = await getTranslations('contact')
 
-  const mapSrc = `https://www.google.com/maps?cid=15236830701148505143&output=embed`
+  const mapSrc = `https://maps.google.com/maps?q=11.7925,76.1636+(VAYALAND)&t=&z=14&ie=UTF8&iwloc=&output=embed`
 
   return (
     <main className="contact-page">
@@ -53,12 +53,50 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
             </div>
           </div>
 
-          <div className="contact-btns">
-            <a href={waLink('Hi, I have an enquiry about properties in Wayanad.')} className="btn-whatsapp" target="_blank" rel="noopener">
-              <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15l-1.4 5 5.2-1.4A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-3-.2-.3A8 8 0 1 1 12 20zm4.4-5.9c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.5.1-.6.8-.8 1-.3.1-.5 0a6.5 6.5 0 0 1-1.9-1.2 7.3 7.3 0 0 1-1.4-1.7c-.1-.2 0-.4.1-.5l.4-.4.2-.4a.4.4 0 0 0 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4H8a.9.9 0 0 0-.7.3 2.8 2.8 0 0 0-.9 2.1 4.9 4.9 0 0 0 1 2.6 11 11 0 0 0 4.3 3.8c2.3 1 2.3.7 2.7.6a2.5 2.5 0 0 0 1.6-1.1 2 2 0 0 0 .1-1.1c0-.1-.2-.2-.4-.3z" /></svg>
-              {t('whatsapp')}
-            </a>
-            <a href={`tel:+${WA_NUMBER}`} className="btn-ghost">{t('call')}</a>
+          {/* DUAL WHATSAPP DIRECT ACTION CARDS (BUY OR SELL) */}
+          <div className="contact-dual-wa">
+            <h4 className="contact-dual-wa__title">{t('dualCtaTitle')}</h4>
+            <p className="contact-dual-wa__sub">{t('dualCtaSub')}</p>
+
+            <div className="contact-dual-wa__grid">
+              {/* BUY ACTION */}
+              <a
+                href={waBuyLink(locale)}
+                className="contact-wa-card contact-wa-card--buy"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <div className="contact-wa-card__header">
+                  <span className="contact-wa-card__tag">{t('waBuyTitle')}</span>
+                  <svg className="contact-wa-card__icon" viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                    <path d="M12 2a10 10 0 0 0-8.6 15l-1.4 5 5.2-1.4A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-3-.2-.3A8 8 0 1 1 12 20zm4.4-5.9c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.5.1-.6.8-.8 1-.3.1-.5 0a6.5 6.5 0 0 1-1.9-1.2 7.3 7.3 0 0 1-1.4-1.7c-.1-.2 0-.4.1-.5l.4-.4.2-.4a.4.4 0 0 0 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4H8a.9.9 0 0 0-.7.3 2.8 2.8 0 0 0-.9 2.1 4.9 4.9 0 0 0 1 2.6 11 11 0 0 0 4.3 3.8c2.3 1 2.3.7 2.7.6a2.5 2.5 0 0 0 1.6-1.1 2 2 0 0 0 .1-1.1c0-.1-.2-.2-.4-.3z" />
+                  </svg>
+                </div>
+                <div className="contact-wa-card__cta">{t('waBuyBtn')} →</div>
+                <p className="contact-wa-card__desc">{t('waBuyDesc')}</p>
+              </a>
+
+              {/* SELL ACTION */}
+              <a
+                href={waSellLink(locale)}
+                className="contact-wa-card contact-wa-card--sell"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <div className="contact-wa-card__header">
+                  <span className="contact-wa-card__tag">{t('waSellTitle')}</span>
+                  <svg className="contact-wa-card__icon" viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                    <path d="M12 2a10 10 0 0 0-8.6 15l-1.4 5 5.2-1.4A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-3-.2-.3A8 8 0 1 1 12 20zm4.4-5.9c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.5.1-.6.8-.8 1-.3.1-.5 0a6.5 6.5 0 0 1-1.9-1.2 7.3 7.3 0 0 1-1.4-1.7c-.1-.2 0-.4.1-.5l.4-.4.2-.4a.4.4 0 0 0 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4H8a.9.9 0 0 0-.7.3 2.8 2.8 0 0 0-.9 2.1 4.9 4.9 0 0 0 1 2.6 11 11 0 0 0 4.3 3.8c2.3 1 2.3.7 2.7.6a2.5 2.5 0 0 0 1.6-1.1 2 2 0 0 0 .1-1.1c0-.1-.2-.2-.4-.3z" />
+                  </svg>
+                </div>
+                <div className="contact-wa-card__cta">{t('waSellBtn')} →</div>
+                <p className="contact-wa-card__desc">{t('waSellDesc')}</p>
+              </a>
+            </div>
+
+            <div className="contact-call-row">
+              <a href={`tel:+${WA_NUMBER}`} className="btn-ghost">{t('call')} (+{WA_NUMBER})</a>
+            </div>
           </div>
 
           <div className="contact-map">
@@ -74,7 +112,7 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
             />
           </div>
           <a
-            href="https://www.google.com/maps/search/?api=1&query=Pulpally,+Wayanad,+Kerala"
+            href="https://maps.google.com/?q=11.7925,76.1636+(VAYALAND)"
             target="_blank"
             rel="noopener"
             className="map-link"

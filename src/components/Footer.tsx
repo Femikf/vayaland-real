@@ -1,11 +1,12 @@
 import React from 'react'
 import Image from 'next/image'
-import { useTranslations } from 'next-intl'
+import { useTranslations, useLocale } from 'next-intl'
 import { Link } from '@/i18n/routing'
-import { MAIL, WA_NUMBER } from '@/lib/site'
+import { MAIL, WA_NUMBER, waBuyLink, waSellLink } from '@/lib/site'
 
 export function Footer() {
   const t = useTranslations()
+  const locale = useLocale()
 
   return (
     <footer className="vl-editorial-footer" role="contentinfo">
@@ -25,7 +26,7 @@ export function Footer() {
               </div>
             </Link>
             <p className="vl-footer-tagline">
-              {t('home.heroSub')}
+              {t('footer.description')}
             </p>
             <div className="vl-footer-credentials">
               <span className="vl-cred-pill">RERA Verified Advisory</span>
@@ -76,6 +77,27 @@ export function Footer() {
                 </svg>
                 <span>{MAIL}</span>
               </a>
+
+              <div className="vl-footer-wa-actions">
+                <a
+                  href={waBuyLink(locale)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="vl-footer-wa-pill vl-footer-wa-pill--buy"
+                >
+                  <span className="vl-wa-dot" />
+                  <span>{t('footer.buyDirect')}</span>
+                </a>
+                <a
+                  href={waSellLink(locale)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="vl-footer-wa-pill vl-footer-wa-pill--sell"
+                >
+                  <span className="vl-wa-dot" />
+                  <span>{t('footer.sellDirect')}</span>
+                </a>
+              </div>
             </div>
 
             <div className="vl-footer-social">

@@ -151,6 +151,22 @@ export default async function AboutPage({
                     </div>
                   </div>
                 </div>
+
+                <div className="vl-about-dual-pillars">
+                  <h3 className="vl-dual-pillars-heading">{t('dualPillarTitle')}</h3>
+                  <div className="vl-dual-pillars-grid">
+                    <div className="vl-dual-pillar-card vl-dual-pillar-card--buyer">
+                      <span className="vl-dual-pillar-tag">FOR BUYERS</span>
+                      <h4 className="vl-dual-pillar-title">{t('buyerPillarTitle')}</h4>
+                      <p className="vl-dual-pillar-desc">{t('buyerPillarDesc')}</p>
+                    </div>
+                    <div className="vl-dual-pillar-card vl-dual-pillar-card--seller">
+                      <span className="vl-dual-pillar-tag">FOR PROPERTY OWNERS</span>
+                      <h4 className="vl-dual-pillar-title">{t('sellerPillarTitle')}</h4>
+                      <p className="vl-dual-pillar-desc">{t('sellerPillarDesc')}</p>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

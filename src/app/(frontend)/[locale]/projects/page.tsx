@@ -3,7 +3,7 @@ import { getPayload } from 'payload'
 import config from '@payload-config'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { Link } from '@/i18n/routing'
-import { waLink, WA_NUMBER, MAIL } from '@/lib/site'
+import { waLink, waBuyLink, waSellLink, WA_NUMBER, MAIL } from '@/lib/site'
 import {
   ProjectsCatalogue,
   type ProjectItem,
@@ -366,7 +366,7 @@ export default async function ProjectsPage({
                 </svg>
               </Link>
               <a
-                href={consultationWa}
+                href={waBuyLink(locale)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="vl-btn-whatsapp-editorial"
@@ -374,7 +374,18 @@ export default async function ProjectsPage({
                 <svg viewBox="0 0 24 24" fill="currentColor">
                   <path d="M12 2a10 10 0 0 0-8.6 15l-1.4 5 5.2-1.4A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-3-.2-.3A8 8 0 1 1 12 20zm4.4-5.9c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.5.1-.6.8-.8 1-.3.1-.5 0a6.5 6.5 0 0 1-1.9-1.2 7.3 7.3 0 0 1-1.4-1.7c-.1-.2 0-.4.1-.5l.4-.4.2-.4a.4.4 0 0 0 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4H8a.9.9 0 0 0-.7.3 2.8 2.8 0 0 0-.9 2.1 4.9 4.9 0 0 0 1 2.6 11 11 0 0 0 4.3 3.8c2.3 1 2.3.7 2.7.6a2.5 2.5 0 0 0 1.6-1.1 2 2 0 0 0 .1-1.1c0-.1-.2-.2-.4-.3z" />
                 </svg>
-                <span>WhatsApp Advisory</span>
+                <span>{locale === 'ml' ? 'വാങ്ങാൻ വാട്സ്ആപ്പ്' : 'WhatsApp to Buy'}</span>
+              </a>
+              <a
+                href={waSellLink(locale)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="vl-btn-whatsapp-editorial"
+              >
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2a10 10 0 0 0-8.6 15l-1.4 5 5.2-1.4A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-3-.2-.3A8 8 0 1 1 12 20zm4.4-5.9c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.5.1-.6.8-.8 1-.3.1-.5 0a6.5 6.5 0 0 1-1.9-1.2 7.3 7.3 0 0 1-1.4-1.7c-.1-.2 0-.4.1-.5l.4-.4.2-.4a.4.4 0 0 0 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4H8a.9.9 0 0 0-.7.3 2.8 2.8 0 0 0-.9 2.1 4.9 4.9 0 0 0 1 2.6 11 11 0 0 0 4.3 3.8c2.3 1 2.3.7 2.7.6a2.5 2.5 0 0 0 1.6-1.1 2 2 0 0 0 .1-1.1c0-.1-.2-.2-.4-.3z" />
+                </svg>
+                <span>{locale === 'ml' ? 'വിൽക്കാൻ വാട്സ്ആപ്പ്' : 'WhatsApp to Sell'}</span>
               </a>
             </div>
           </div>

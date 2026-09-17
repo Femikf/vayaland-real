@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 import { routing } from '@/i18n/routing'
 import { Nav } from '@/components/Nav'
 import { Footer } from '@/components/Footer'
+import { FloatingWhatsApp } from '@/components/FloatingWhatsApp'
 import './globals.css'
 
 export function generateStaticParams() {
@@ -40,6 +41,7 @@ export default async function LocaleLayout({
           <Nav />
           {children}
           <Footer />
+          <FloatingWhatsApp />
         </NextIntlClientProvider>
       </body>
     </html>
