@@ -57,9 +57,10 @@ export function Nav() {
   }
 
   const navItems = [
-    { href: '/services', label: t('services'), num: '01', key: 'services' },
+    { href: '/', label: t('home'), num: '01', key: 'home' },
     { href: '/about', label: t('about'), num: '02', key: 'about' },
-    { href: '/contact', label: t('contact'), num: '03', key: 'contact' },
+    { href: '/services', label: t('services'), num: '03', key: 'services' },
+    { href: '/contact', label: t('contact'), num: '04', key: 'contact' },
   ]
 
   const consultMessage =

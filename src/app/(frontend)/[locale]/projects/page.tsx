@@ -65,7 +65,7 @@ export default async function ProjectsPage({
           specs: Array.isArray(d.specs)
             ? d.specs.map((s: any) => s.value).filter(Boolean)
             : [],
-          imageUrl: firstImg || '/assets/masterplanned-plots.jpg',
+          imageUrl: firstImg || '/assets/kerala-land-plantation-hires.jpg',
           featured: Boolean(d.featured),
         }
       })
@@ -185,7 +185,7 @@ export default async function ProjectsPage({
         locale === 'ml'
           ? 'പ്രകൃതിദത്ത കല്ലുകൾ, തേക്ക് തടി മേൽക്കൂരകൾ, ഇൻഫിനിറ്റി പൂളുള്ള ആഡംബര വില്ല.'
           : 'Dramatic cliffside villa sanctuary designed with natural stone and teak timber eaves.',
-      imageUrl: '/assets/villa-infinity-sunset.jpg',
+      imageUrl: '/assets/kerala-house-heritage-hires.jpg',
     },
     {
       id: 'project-6',
@@ -207,7 +207,7 @@ export default async function ProjectsPage({
         locale === 'ml'
           ? 'പുൽപ്പള്ളി പ്രധാന റോഡിൽ സ്ഥിതി ചെയ്യുന്ന പ്രീമിയം വാണിജ്യ സമുച്ചയം.'
           : 'Centrally positioned commercial asset engineered for boutique banking, retail flagships, and premium serviced executive suites.',
-      imageUrl: '/assets/architectural-limestone.jpg',
+      imageUrl: '/assets/kerala-commercial-building-hires.jpg',
     },
     {
       id: 'project-7',
@@ -229,7 +229,7 @@ export default async function ProjectsPage({
         locale === 'ml'
           ? 'തടാക തീരത്ത് സ്ഥിതി ചെയ്യുന്ന അത്യാധുനിക ആഡംബര റിസോർട്ട് സമുച്ചയം.'
           : 'A premier operating lakefront hospitality asset with twin architectural towers, shoreline chalets, and recreation facilities.',
-      imageUrl: '/assets/kerala-resort-aerial.png',
+      imageUrl: '/assets/kerala-resort-luxury-hires.jpg',
     },
     {
       id: 'project-8',

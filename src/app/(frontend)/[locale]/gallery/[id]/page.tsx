@@ -56,17 +56,17 @@ const SHOWCASE_PROPERTIES: Record<
         title: 'Vernacular Teak Overhangs',
       },
       {
-        url: '/assets/architecture-mood.jpg',
+        url: '/assets/kerala-house-heritage-hires.jpg',
         alt: 'Courtyard Light Well and Living Interior',
         title: 'Interior Living Space with Natural Illumination',
       },
       {
-        url: '/assets/hero-villa.jpg',
+        url: '/assets/kerala-house-heritage.jpg',
         alt: 'Twilight View of Villa Architecture',
         title: 'Evening Ambient Illumination',
       },
       {
-        url: '/assets/masterplanned-plots.jpg',
+        url: '/assets/kerala-plot-hillside.png',
         alt: 'Plot Boundary Layout and Landscaping',
         title: 'Site Plan & Boundary Layout',
       },
@@ -102,7 +102,7 @@ const SHOWCASE_PROPERTIES: Record<
         title: 'Cleared Building Envelope with Stone Retaining Wall',
       },
       {
-        url: '/assets/land-plot.png',
+        url: '/assets/kerala-land-arecanut.png',
         alt: 'Wide Boundary Survey and Frontage Angle',
         title: 'Road Approach & Front Boundary',
       },
@@ -112,7 +112,7 @@ const SHOWCASE_PROPERTIES: Record<
         title: 'Mountain Horizon at Dawn',
       },
       {
-        url: '/assets/masterplanned-plots.jpg',
+        url: '/assets/kerala-land-plantation-hires.jpg',
         alt: 'Contour Survey and Boundary Overlay',
         title: 'Contour & Masterplot Plan',
       },
@@ -148,7 +148,7 @@ const SHOWCASE_PROPERTIES: Record<
         title: 'Gentle Plantation Terraces & Coffee Canopy',
       },
       {
-        url: '/assets/golden-sunset-palms.jpg',
+        url: '/assets/kerala-land-arecanut.png',
         alt: 'Golden Sunset over the Western Ghats from the Estate',
         title: 'Sunset Skyline across Reservoir Hills',
       },
@@ -158,7 +158,7 @@ const SHOWCASE_PROPERTIES: Record<
         title: 'Morning Mist over Estate Valleys',
       },
       {
-        url: '/assets/masterplanned-plots.jpg',
+        url: '/assets/kerala-land-plantation-hires.jpg',
         alt: 'Topographical Estate Survey Map',
         title: 'Topographic Boundary Mapping',
       },
@@ -199,12 +199,12 @@ const SHOWCASE_PROPERTIES: Record<
         title: 'Gated Entrance & Front Elevation',
       },
       {
-        url: '/assets/architecture-mood.jpg',
+        url: '/assets/kerala-house-heritage.jpg',
         alt: 'Courtyard Skylight and Polished Teak Interior',
         title: 'Courtyard Interior with Natural Illumination',
       },
       {
-        url: '/assets/villa-infinity-sunset.jpg',
+        url: '/assets/kerala-house-heritage-hires.jpg',
         alt: 'Sunset Garden Terrace View',
         title: 'Outdoor Garden Terrace at Dusk',
       },
@@ -235,12 +235,12 @@ const SHOWCASE_PROPERTIES: Record<
     googleEarthLink: 'https://earth.google.com/web/@11.5518,76.1287,850a,600d',
     images: [
       {
-        url: '/assets/villa-infinity-sunset.jpg',
+        url: '/assets/kerala-house-heritage-hires.jpg',
         alt: 'The Mistral Horizon - 25m Infinity Pool at Sunset',
         title: 'Cantilevered Infinity Pool Horizon at Dusk',
       },
       {
-        url: '/assets/infinity-pool-horizon.jpg',
+        url: '/assets/kerala-resort-luxury-hires.jpg',
         alt: 'Daylight Pool Deck overlooking Wayanad Valley',
         title: 'Skyline Pool Deck in Daylight',
       },
@@ -250,7 +250,7 @@ const SHOWCASE_PROPERTIES: Record<
         title: 'Crafted Timber Pavilion Lounge',
       },
       {
-        url: '/assets/architecture-mood.jpg',
+        url: '/assets/kerala-resort-cottages.png',
         alt: 'Master Suite with Floor-to-Ceiling Valley Glazing',
         title: 'Master Suite with Floor-to-Ceiling Panorama',
       },
@@ -281,24 +281,24 @@ const SHOWCASE_PROPERTIES: Record<
     googleEarthLink: 'https://earth.google.com/web/@11.7942,76.1687,740a,800d',
     images: [
       {
-        url: '/assets/architectural-limestone.jpg',
-        alt: 'Pulpally Commercial Plaza - Polished Limestone Facade',
-        title: 'Architectural Stone & Glass Commercial Elevation',
+        url: '/assets/kerala-commercial-building-hires.jpg',
+        alt: 'Pulpally Commercial Plaza - Modern Highway Elevation',
+        title: 'Architectural Highway Commercial Elevation',
       },
       {
-        url: '/assets/hero-cinematic.jpg',
+        url: '/assets/kerala-commercial-arcade.png',
         alt: 'Front Street Elevation with Wide Access',
         title: 'Street Frontage & Covered Drop-off',
       },
       {
-        url: '/assets/architecture-mood.jpg',
-        alt: 'Modern Executive Lobby and Atrium',
-        title: 'Double-Height Grand Lobby Atrium',
+        url: '/assets/kerala-commercial-roadside.png',
+        alt: 'Modern Executive Roadside Commercial Units',
+        title: 'Highway Retail Arcade & Showroom Fronts',
       },
       {
-        url: '/assets/masterplanned-plots.jpg',
+        url: '/assets/kerala-commercial-modern.png',
         alt: 'Commercial Parking Footprint and Layout',
-        title: 'Floor Plan & Parking Circulation Map',
+        title: 'Multi-Tier Commercial Complex & Parking',
       },
     ],
   }),
@@ -327,7 +327,7 @@ const SHOWCASE_PROPERTIES: Record<
     googleEarthLink: 'https://earth.google.com/web/@11.6667,75.9667,780a,900d',
     images: [
       {
-        url: '/assets/kerala-resort-aerial.png',
+        url: '/assets/kerala-resort-luxury-hires.jpg',
         alt: 'Banasura Lakeside Resort - Aerial Island & Inlet View',
         title: 'Aerial Perspective of Lakefront Shoreline & Chalets',
       },
@@ -337,12 +337,12 @@ const SHOWCASE_PROPERTIES: Record<
         title: 'Shoreline Chalets against Mist-Clad Peaks',
       },
       {
-        url: '/assets/villa-infinity-sunset.jpg',
+        url: '/assets/kerala-resort-cottages.png',
         alt: 'Resort Sunset Pool Deck overlooking Banasura Waters',
         title: 'Waterfront Sunset Pool Deck',
       },
       {
-        url: '/assets/golden-sunset-palms.jpg',
+        url: '/assets/kerala-resort-traditional.png',
         alt: 'Private Waterside Botanical Pathway',
         title: 'Lakeside Walking Promenade',
       },
@@ -378,7 +378,7 @@ const SHOWCASE_PROPERTIES: Record<
         title: 'Canopy Cottages alongside Perennial Stream',
       },
       {
-        url: '/assets/kerala-resort-aerial.png',
+        url: '/assets/kerala-resort-cottages.png',
         alt: 'Rainforest Valley Aerial Panorama',
         title: 'Aerial Rainforest Valley Setting',
       },
@@ -405,10 +405,16 @@ type Media = {
 
 export default async function PropertyDetailPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ locale: string; id: string }>
+  searchParams?: Promise<{ fromCategory?: string; category?: string }>
 }) {
   const { locale, id } = await params
+  const resolvedSearchParams = searchParams ? await searchParams : {}
+  const backCategory = resolvedSearchParams.fromCategory || resolvedSearchParams.category
+  const backHref = backCategory && backCategory !== 'all' ? `/projects?category=${backCategory}` : '/projects'
+
   setRequestLocale(locale)
   const t = await getTranslations('gallery')
 
@@ -454,7 +460,7 @@ export default async function PropertyDetailPage({
     const fallbackUrl =
       property.imageUrl ||
       property.featuredImage?.url ||
-      '/assets/masterplanned-plots.jpg'
+      '/assets/kerala-land-plantation-hires.jpg'
     galleryImages = [
       {
         url: fallbackUrl,
@@ -495,7 +501,7 @@ export default async function PropertyDetailPage({
     <>
       <header className="page-head">
         <div className="inner">
-          <Link href="/projects" className="back-link">
+          <Link href={backHref} className="back-link">
             <svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M19 12H5M12 5l-7 7 7 7" />
             </svg>
@@ -604,7 +610,7 @@ export default async function PropertyDetailPage({
                 </a>
               )}
             </div>
-            <Link href="/projects" className="back-link" style={{ marginTop: 40, display: 'inline-flex' }}>
+            <Link href={backHref} className="back-link" style={{ marginTop: 40, display: 'inline-flex' }}>
               <svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M19 12H5M12 5l-7 7 7 7" />
               </svg>

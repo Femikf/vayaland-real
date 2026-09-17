@@ -67,29 +67,94 @@ interface ProjectsCatalogueProps {
 }
 
 export function ProjectsCatalogue({ projects, initialCategory, labels }: ProjectsCatalogueProps) {
-  // Normalize initial category
+  // Normalize initial category with URL and sessionStorage persistence
   const getInitialFilter = (): FilterKey => {
-    if (!initialCategory) return 'all'
-    const cat = initialCategory.toLowerCase()
-    if (cat === 'house' || cat === 'residential') return 'house'
-    if (cat === 'land') return 'land'
-    if (cat === 'commercial') return 'commercial'
-    if (cat === 'resort') return 'resort'
+    if (initialCategory) {
+      const cat = initialCategory.toLowerCase()
+      if (cat === 'house' || cat === 'residential') return 'house'
+      if (cat === 'land') return 'land'
+      if (cat === 'commercial') return 'commercial'
+      if (cat === 'resort') return 'resort'
+      if (['completed', 'ongoing', 'upcoming'].includes(cat)) return cat as FilterKey
+    }
+
+    if (typeof window !== 'undefined') {
+      try {
+        const urlParams = new URLSearchParams(window.location.search)
+        const cat = urlParams.get('category')?.toLowerCase()
+        if (cat === 'house' || cat === 'residential') return 'house'
+        if (cat === 'land') return 'land'
+        if (cat === 'commercial') return 'commercial'
+        if (cat === 'resort') return 'resort'
+        if (cat && ['completed', 'ongoing', 'upcoming'].includes(cat)) return cat as FilterKey
+
+        const saved = sessionStorage.getItem('vl_projects_active_filter')
+        if (
+          saved &&
+          ['house', 'residential', 'commercial', 'land', 'resort', 'completed', 'ongoing', 'upcoming'].includes(
+            saved
+          )
+        ) {
+          return saved as FilterKey
+        }
+      } catch {}
+    }
+
     return 'all'
   }
 
   const [activeFilter, setActiveFilter] = useState<FilterKey>(getInitialFilter())
   const [isTransitioning, setIsTransitioning] = useState(false)
 
-  // Sync state if initialCategory prop changes from external router
+  // Ensure client-side synchronization and restore saved tab
   React.useEffect(() => {
-    if (initialCategory) {
-      const cat = initialCategory.toLowerCase()
-      if (cat === 'house' || cat === 'residential') setActiveFilter('house')
-      else if (cat === 'land') setActiveFilter('land')
-      else if (cat === 'commercial') setActiveFilter('commercial')
-      else if (cat === 'resort') setActiveFilter('resort')
-    }
+    try {
+      if (initialCategory) {
+        const cat = initialCategory.toLowerCase()
+        if (cat === 'house' || cat === 'residential') {
+          setActiveFilter('house')
+          sessionStorage.setItem('vl_projects_active_filter', 'house')
+          return
+        } else if (cat === 'land') {
+          setActiveFilter('land')
+          sessionStorage.setItem('vl_projects_active_filter', 'land')
+          return
+        } else if (cat === 'commercial') {
+          setActiveFilter('commercial')
+          sessionStorage.setItem('vl_projects_active_filter', 'commercial')
+          return
+        } else if (cat === 'resort') {
+          setActiveFilter('resort')
+          sessionStorage.setItem('vl_projects_active_filter', 'resort')
+          return
+        }
+      }
+
+      const urlParams = new URLSearchParams(window.location.search)
+      const urlCat = urlParams.get('category')?.toLowerCase()
+      if (urlCat === 'house' || urlCat === 'residential') {
+        setActiveFilter('house')
+        sessionStorage.setItem('vl_projects_active_filter', 'house')
+        return
+      } else if (urlCat === 'land') {
+        setActiveFilter('land')
+        sessionStorage.setItem('vl_projects_active_filter', 'land')
+        return
+      } else if (urlCat === 'commercial') {
+        setActiveFilter('commercial')
+        sessionStorage.setItem('vl_projects_active_filter', 'commercial')
+        return
+      } else if (urlCat === 'resort') {
+        setActiveFilter('resort')
+        sessionStorage.setItem('vl_projects_active_filter', 'resort')
+        return
+      }
+
+      const saved = sessionStorage.getItem('vl_projects_active_filter')
+      if (saved && saved !== 'all') {
+        setActiveFilter(saved as FilterKey)
+      }
+    } catch {}
   }, [initialCategory])
 
   // Calculate dynamic counts for all filter tabs
@@ -137,17 +202,25 @@ export function ProjectsCatalogue({ projects, initialCategory, labels }: Project
     setTimeout(() => {
       setActiveFilter(filter)
       setIsTransitioning(false)
-      // Sync URL search params without reload
+      // Sync URL search params and persist in sessionStorage
       if (typeof window !== 'undefined') {
-        const url = new URL(window.location.href)
-        if (filter === 'all' || filter === 'completed' || filter === 'ongoing' || filter === 'upcoming') {
-          url.searchParams.delete('category')
-        } else if (filter === 'house' || filter === 'residential') {
-          url.searchParams.set('category', 'house')
-        } else {
-          url.searchParams.set('category', filter)
-        }
-        window.history.replaceState({}, '', url.toString())
+        try {
+          if (filter === 'all') {
+            sessionStorage.removeItem('vl_projects_active_filter')
+          } else {
+            sessionStorage.setItem('vl_projects_active_filter', filter)
+          }
+
+          const url = new URL(window.location.href)
+          if (filter === 'all' || filter === 'completed' || filter === 'ongoing' || filter === 'upcoming') {
+            url.searchParams.delete('category')
+          } else if (filter === 'house' || filter === 'residential') {
+            url.searchParams.set('category', 'house')
+          } else {
+            url.searchParams.set('category', filter)
+          }
+          window.history.replaceState({}, '', url.toString())
+        } catch {}
       }
     }, 180)
   }
@@ -409,7 +482,7 @@ export function ProjectsCatalogue({ projects, initialCategory, labels }: Project
                             </a>
 
                             <Link
-                              href={`/gallery/${project.id}`}
+                              href={`/gallery/${project.id}${activeFilter !== 'all' ? `?fromCategory=${activeFilter}` : ''}`}
                               className="vl-cat-action-arrow"
                               aria-label={`View details of ${project.title}`}
                             >

@@ -66,7 +66,7 @@ export default async function ServicesPage({
         locale === 'ml'
           ? 'നമസ്കാരം വയലാൻഡ്, എനിക്ക് വയനാട്ടിൽ വീടുകൾ / വില്ലകൾ വാങ്ങുന്നതിനെക്കുറിച്ച് ആലോചിക്കാൻ താല്പര്യമുണ്ട്.'
           : 'Hello Vayaland, I would like to enquire about Houses and Villas for Sale in Wayanad.',
-      image: '/assets/kerala-house-sale.png',
+      image: '/assets/kerala-house-heritage-hires.jpg',
       imageAlt: 'Vayaland Houses and Villas for Sale Wayanad',
       coordsTag: 'Contemporary Kerala · Verified Titles · Turnkey Handover',
     },
@@ -85,7 +85,7 @@ export default async function ServicesPage({
         locale === 'ml'
           ? 'നമസ്കാരം വയലാൻഡ്, എനിക്ക് വയനാട്ടിലെ ഭൂമി / പ്ലാന്റേഷൻ പ്ലോട്ടുകളെക്കുറിച്ച് ആലോചിക്കാൻ താല്പര്യമുണ്ട്.'
           : 'Hello Vayaland, I would like to enquire about Land Parcels and Plantation Estates for Sale in Wayanad.',
-      image: '/assets/kerala-land-plot.png',
+      image: '/assets/masterplanned-plots.jpg',
       imageAlt: 'Vayaland Land Parcels and Plantation Holdings Wayanad',
       coordsTag: 'Fertile Soil · 30-Year Prior Deed · Contour Mapped',
     },
@@ -104,7 +104,7 @@ export default async function ServicesPage({
         locale === 'ml'
           ? 'നമസ്കാരം വയലാൻഡ്, എനിക്ക് വയനാട്ടിലെ കൊമേഴ്‌സ്യൽ കെട്ടിടങ്ങളെക്കുറിച്ചും നിക്ഷേപങ്ങളെക്കുറിച്ചും അറിയണം.'
           : 'Hello Vayaland, I would like to enquire about Commercial Buildings and Investment Properties in Wayanad.',
-      image: '/assets/architectural-limestone.jpg',
+      image: '/assets/kerala-commercial-modern.png',
       imageAlt: 'Vayaland Commercial Buildings & Properties Wayanad',
       coordsTag: 'Main Highway Frontage · High Rental Yield · Commercial Approved',
     },
@@ -123,7 +123,7 @@ export default async function ServicesPage({
         locale === 'ml'
           ? 'നമസ്കാരം വയലാൻഡ്, എനിക്ക് വയനാട്ടിലെ റിസോർട്ടുകൾ / ടൂറിസം പ്രോപ്പർട്ടികളെക്കുറിച്ച് അറിയണം.'
           : 'Hello Vayaland, I would like to enquire about Resorts for Sale and Hospitality Land in Wayanad.',
-      image: '/assets/kerala-resort-aerial.png',
+      image: '/assets/kerala-resort-luxury-hires.jpg',
       imageAlt: 'Vayaland Resorts and Hospitality Land for Sale Wayanad',
       coordsTag: 'Lakeside Panoramas · Tourism Licensing · Agro-Tourism Potential',
     },

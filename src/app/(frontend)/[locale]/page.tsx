@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { Link } from '@/i18n/routing'
 import { waLink, mailLink, WA_NUMBER } from '@/lib/site'
 import { VisualGallery } from '@/components/home/VisualGallery'
+import { HeroSlider } from '@/components/home/HeroSlider'
 
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
@@ -36,7 +37,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       location: locale === 'ml' ? 'മേപ്പാടി, വയനാട്' : 'Meppadi, Wayanad',
       price: '₹ 3.85 Cr',
       extent: '2.8 Acres · 4 Bed Villa',
-      imageUrl: '/assets/villa-infinity-sunset.jpg',
+      imageUrl: '/assets/kerala-house-heritage-hires.jpg',
       aspectRatio: 'landscape',
     },
     {
@@ -46,7 +47,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       location: locale === 'ml' ? 'പടിഞ്ഞാറത്തറ, വയനാട്' : 'Padinjarathara, Wayanad',
       price: '₹ 1.20 Cr',
       extent: '5.4 Acres · Coffee & Pepper',
-      imageUrl: '/assets/masterplanned-plots.jpg',
+      imageUrl: '/assets/kerala-land-plantation-hires.jpg',
       aspectRatio: 'portrait',
     },
     {
@@ -80,53 +81,107 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       : 'Hello Vayaland, I would like to enquire about your land parcels and architectural estates in Wayanad.'
   )
 
+  // 5-Slide Architectural Running Hero Showcase
+  const heroSlides = [
+    {
+      id: 'hero-1-brand',
+      image: '/assets/hero-cinematic.jpg',
+      eyebrow: locale === 'ml' ? 'വയലാൻഡ് · ദി റിയൽ വയനാട്' : 'VAYALAND · THE REAL WAYANAD',
+      serviceBadge: locale === 'ml' ? 'പ്രീമിയം വയനാട് റിയൽ എസ്റ്റേറ്റ്' : 'PREMIUM ARCHITECTURAL ESTATES',
+      title: t('home.heroTitle'),
+      subtitle: t('home.heroSub'),
+      ctaLabel: t('home.explore'),
+      ctaLink: '/projects',
+    },
+    {
+      id: 'hero-2-house',
+      image: '/assets/hero-slider-house.jpg',
+      eyebrow: locale === 'ml' ? 'വീടുകൾ വിൽക്കാനുണ്ട്' : 'HOUSE FOR SALE',
+      serviceBadge: locale === 'ml' ? 'ആധുനിക കേരള വാസ്തുശില്പം' : 'CONTEMPORARY KERALA VILLAS',
+      title: locale === 'ml' ? 'ആധുനിക കേരള വാസ്തുശില്പ വില്ലകൾ' : 'Contemporary Kerala Architectural Villas',
+      subtitle: locale === 'ml' ? 'പരമ്പരാഗത തേക്ക് തടി മുഖപ്പുകൾ, വിശാലമായ നടുമുറ്റം, പ്രകൃതിദത്ത വെളിച്ചം നിറഞ്ഞ ലിവിംഗ് ഏരിയകൾ, 100% ക്ലിയർ ടൈറ്റിൽ.' : 'Bespoke vernacular proportions, courtyard ventilation, seasoned teak timber eaves, and verified clear deeds in Wayanad.',
+      ctaLabel: locale === 'ml' ? 'വീടുകൾ കാണുക' : 'Explore Houses',
+      ctaLink: '/projects?category=house',
+    },
+    {
+      id: 'hero-3-land',
+      image: '/assets/hero-slider-land.jpg',
+      eyebrow: locale === 'ml' ? 'ഭൂമി വിൽക്കാനുണ്ട്' : 'LAND FOR SALE',
+      serviceBadge: locale === 'ml' ? 'റസിഡൻഷ്യൽ & പ്ലാന്റേഷൻ പ്ലോട്ടുകൾ' : 'SCENIC HILLSIDE & ESTATE PLOTS',
+      title: locale === 'ml' ? 'വയനാടൻ മലനിരകളിലെ മനോഹര പ്ലോട്ടുകൾ' : 'Scenic Wayanad Hillside & Plantation Plots',
+      subtitle: locale === 'ml' ? 'വെട്ടുകല്ല് സംരക്ഷണ മതിൽ, കാപ്പിയും കുരുമുളകും നിറഞ്ഞ ഫലഭൂയിഷ്ഠമായ മണ്ണ്, അതിമനോഹരമായ പശ്ചിമഘട്ട കാഴ്ച്ചകൾ.' : 'Terraced fertile red soil, crystal freshwater springs, mature coffee canopy, and panoramic horizon vistas.',
+      ctaLabel: locale === 'ml' ? 'സ്ഥലങ്ങൾ കാണുക' : 'Explore Land',
+      ctaLink: '/projects?category=land',
+    },
+    {
+      id: 'hero-4-commercial',
+      image: '/assets/hero-slider-commercial.jpg',
+      eyebrow: locale === 'ml' ? 'കൊമേഴ്‌സ്യൽ പ്രോപ്പർട്ടികൾ' : 'COMMERCIAL BUILDING',
+      serviceBadge: locale === 'ml' ? 'പ്രധാന ഹൈവേ കൊമേഴ്‌സ്യൽ ഹബ്ബ്' : 'PRIME HIGHWAY BUSINESS HUBS',
+      title: locale === 'ml' ? 'ആധുനിക കൊമേഴ്‌സ്യൽ പ്ലാസകളും സ്യൂട്ടുകളും' : 'Modern Highway Commercial Plazas & Suites',
+      subtitle: locale === 'ml' ? 'മെയിൻ റോഡ് ഫ്രണ്ടേജ്, വിശാലമായ പാർക്കിംഗ്, ഉയർന്ന വാടക വരുമാനം ഉറപ്പുനൽകുന്ന പ്രീമിയം വാണിജ്യ സമുച്ചയങ്ങൾ.' : 'Strategic highway double-frontage, multi-tier parking, and premium retail avenues with high rental yields.',
+      ctaLabel: locale === 'ml' ? 'കൊമേഴ്‌സ്യൽ കാണുക' : 'Explore Commercial',
+      ctaLink: '/projects?category=commercial',
+    },
+    {
+      id: 'hero-5-resort',
+      image: '/assets/hero-slider-resort.jpg',
+      eyebrow: locale === 'ml' ? 'റിസോർട്ടുകൾ വിൽക്കാനുണ്ട്' : 'RESORT FOR SALE',
+      serviceBadge: locale === 'ml' ? 'ഇക്കോ-ടൂറിസം റിട്രീറ്റുകൾ' : 'LUXURY HOSPITALITY & ECO-RESORTS',
+      title: locale === 'ml' ? 'തടാക തീര ആഡംബര ഇക്കോ-റിസോർട്ടുകൾ' : 'Serene Wayanad Lakeside & Rainforest Eco-Resorts',
+      subtitle: locale === 'ml' ? 'പ്രകൃതിദത്ത തടാക തീരത്ത് സ്ഥിതി ചെയ്യുന്ന പ്രവർത്തിക്കുന്ന റിസോർട്ടുകൾ, ഇൻഫിനിറ്റി പൂൾ, പൂർണ്ണ ടൂറിസം അനുമതികൾ.' : 'Operating boutique chalets, cliffside infinity pools, approved eco-tourism masterplans, and lasting returns.',
+      ctaLabel: locale === 'ml' ? 'റിസോർട്ടുകൾ കാണുക' : 'Explore Resorts',
+      ctaLink: '/projects?category=resort',
+    },
+  ]
+
   const keralaGalleryItems = [
     {
       id: 'kerala-1',
-      title: locale === 'ml' ? 'സമകാലിക കേരള വാസ്തുശില്പ ഭവനം' : 'Contemporary Kerala Residence',
+      title: locale === 'ml' ? 'പരമ്പരാഗത കേരള തറവാട് ഭവനം' : 'Heritage Kerala Courtyard Residence',
       location: locale === 'ml' ? 'പുൽപ്പള്ളി, വയനാട്' : 'Pulpally, Wayanad',
-      tag: locale === 'ml' ? 'വീടുകൾ · House for Sale' : 'House for Sale · Modern Kerala',
-      image: '/assets/kerala-house-sale.png',
+      tag: locale === 'ml' ? 'വീടുകൾ · House for Sale' : 'House for Sale · Heritage Architecture',
+      image: '/assets/kerala-house-traditional.png',
       categoryLink: '/projects?category=house',
     },
     {
       id: 'kerala-2',
-      title: locale === 'ml' ? 'മേപ്പാടി റെഡ്-സോയിൽ പ്ലോട്ട്' : 'Wayanad Terraced Red-Soil Plot',
-      location: locale === 'ml' ? 'മേപ്പാടി അടിവാരം' : 'Meppadi Foothills',
-      tag: locale === 'ml' ? 'സ്ഥലങ്ങൾ · Land for Sale' : 'Land for Sale · Ready to Build',
-      image: '/assets/kerala-land-plot.png',
-      categoryLink: '/projects?category=land',
+      title: locale === 'ml' ? 'ഹൈവേ കൊമേഴ്‌സ്യൽ ഷോപ്പിംഗ് പ്ലാസ' : 'EK Commercial Arcade & Showrooms',
+      location: locale === 'ml' ? 'ടൗൺ സെന്റർ, വയനാട്' : 'Town Center, Wayanad',
+      tag: locale === 'ml' ? 'കൊമേഴ്‌സ്യൽ · Commercial' : 'Commercial Building · Prime Retail',
+      image: '/assets/kerala-commercial-arcade.png',
+      categoryLink: '/projects?category=commercial',
     },
     {
       id: 'kerala-3',
-      title: locale === 'ml' ? 'കേരള പാം ഗ്രോവ് & പ്ലാന്റേഷൻ' : 'Lush Kerala Palm Grove & Meadow',
-      location: locale === 'ml' ? 'സുൽത്താൻ ബത്തേരി പീഠഭൂമി' : 'Sulthan Bathery Plateau',
-      tag: locale === 'ml' ? 'സ്ഥലങ്ങൾ · Plantation Acreage' : 'Land for Sale · Plantation Acreage',
-      image: '/assets/kerala-plantation-meadow.png',
-      categoryLink: '/projects?category=land',
-    },
-    {
-      id: 'kerala-4',
-      title: locale === 'ml' ? 'ബാണാസുര ലേക്‌സൈഡ് ഇക്കോ റിസോർട്ട്' : 'Banasura Lakeside Hill Resort',
-      location: locale === 'ml' ? 'ബാണാസുര സാഗർ, വയനാട്' : 'Banasura Sagar, Wayanad',
-      tag: locale === 'ml' ? 'റിസോർട്ടുകൾ · Resort for Sale' : 'Resort for Sale · Lake Panoramas',
-      image: '/assets/kerala-resort-aerial.png',
+      title: locale === 'ml' ? 'വന സാമീപ്യമുള്ള ഇക്കോ റിസോർട്ട്' : 'Forest Canopy Eco-Resort & Cottages',
+      location: locale === 'ml' ? 'വൈത്തിരി താഴ്‌വര' : 'Vythiri Rainforest Edge',
+      tag: locale === 'ml' ? 'റിസോർട്ടുകൾ · Resort for Sale' : 'Resort for Sale · Operational Retreat',
+      image: '/assets/kerala-resort-traditional.png',
       categoryLink: '/projects?category=resort',
     },
     {
-      id: 'kerala-5',
-      title: locale === 'ml' ? 'ചെമ്പ്ര കോടമഞ്ഞ് താഴ്‌വര' : 'Emerald Morning Mist Ridge',
-      location: locale === 'ml' ? 'ചെമ്പ്ര കൊടുമുടി' : 'Chembra Peak Valley',
-      tag: locale === 'ml' ? 'പ്രകൃതി സൗന്ദര്യം · Highland Belt' : 'Highland Vantage · Ecological Belt',
-      image: '/assets/kerala-mist-sunrise.jpg',
+      id: 'kerala-4',
+      title: locale === 'ml' ? 'ഫലഭൂയിഷ്ഠമായ ഹിൽസൈഡ് പ്ലോട്ട്' : 'Verdant Hillside Plantation Plot',
+      location: locale === 'ml' ? 'മേപ്പാടി, വയനാട്' : 'Meppadi, Wayanad',
+      tag: locale === 'ml' ? 'സ്ഥലങ്ങൾ · Land for Sale' : 'Land for Sale · Panoramic Parcel',
+      image: '/assets/kerala-plot-hillside.png',
       categoryLink: '/projects?category=land',
     },
     {
+      id: 'kerala-5',
+      title: locale === 'ml' ? 'ആധുനിക മൾട്ടി-ടയർ കൊമേഴ്‌സ്യൽ കോംപ്ലക്സ്' : 'Contemporary Commercial Hub & Parking',
+      location: locale === 'ml' ? 'സുൽത്താൻ ബത്തേരി' : 'Sulthan Bathery Corridor',
+      tag: locale === 'ml' ? 'കൊമേഴ്‌സ്യൽ · Commercial' : 'Commercial Building · Highway Facing',
+      image: '/assets/kerala-commercial-modern.png',
+      categoryLink: '/projects?category=commercial',
+    },
+    {
       id: 'kerala-6',
-      title: locale === 'ml' ? 'തനത് വെട്ടുകല്ലും തേക്ക് തടിയും' : 'Handcrafted Laterite & Seasoned Teak',
-      location: locale === 'ml' ? 'വയനാട് ഹൈലാൻഡ്സ്' : 'Wayanad Highlands',
-      tag: locale === 'ml' ? 'വാസ്തുശില്പം · Vernacular Craft' : 'House for Sale · Vernacular Craft',
-      image: '/assets/modern-timber-eaves.jpg',
+      title: locale === 'ml' ? 'സമകാലിക കേരള വാസ്തുശില്പ വില്ല' : 'Contemporary Kerala Architectural Villa',
+      location: locale === 'ml' ? 'പുൽപ്പള്ളി, വയനാട്' : 'Pulpally, Wayanad',
+      tag: locale === 'ml' ? 'വാസ്തുശില്പം · Modern Kerala' : 'House for Sale · Modern Kerala',
+      image: '/assets/kerala-house-sale.png',
       categoryLink: '/projects?category=house',
     },
   ]
@@ -134,58 +189,9 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
   return (
     <div className="vl-homepage-root">
       {/* ========================================================================= */}
-      {/* SECTION 1: FULL-SCREEN EDITORIAL HERO                                     */}
+      {/* SECTION 1: 5-SLIDE RUNNING EDITORIAL HERO SLIDER                          */}
       {/* ========================================================================= */}
-      <section className="vl-hero-editorial" aria-label="Hero">
-        <div className="vl-hero-bg-media">
-          <Image
-            src="/assets/hero-cinematic.jpg"
-            alt="Vayaland Architectural Real Estate Wayanad"
-            fill
-            priority
-            quality={92}
-            className="vl-hero-bg-img"
-            sizes="100vw"
-          />
-          <div className="vl-hero-overlay" />
-        </div>
-
-        <div className="vl-hero-content-wrap">
-          <div className="vl-hero-content">
-            <span className="vl-hero-tag">
-              <span className="vl-tag-accent" />
-              <span>{t('home.heroTag')}</span>
-            </span>
-
-            <h1 className="vl-hero-title">
-              {t('home.heroTitle')}
-            </h1>
-
-            <p className="vl-hero-narrative">
-              {t('home.heroSub')}
-            </p>
-
-            <div className="vl-hero-actions">
-              <Link href="/projects" className="vl-btn-gold">
-                <span>{t('home.explore')}</span>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </Link>
-              <Link href="/contact" className="vl-btn-outline-white">
-                <span>{t('home.enquire')}</span>
-              </Link>
-            </div>
-          </div>
-
-          <a href="#editorial-intro" className="vl-hero-scroll-hint" aria-label="Scroll to introduction">
-            <span className="vl-scroll-pill">
-              <span className="vl-scroll-dot" />
-            </span>
-            <span className="vl-scroll-text">{t('home.scroll')}</span>
-          </a>
-        </div>
-      </section>
+      <HeroSlider slides={heroSlides} locale={locale} />
 
       {/* ========================================================================= */}
       {/* SECTION 2: BRAND INTRODUCTION & ARCHITECTURAL PHILOSOPHY                  */}
@@ -228,7 +234,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
               <div className="vl-intro-image-frame">
                 <div className="vl-intro-image-wrapper">
                   <Image
-                    src="/assets/architecture-mood.jpg"
+                    src="/assets/kerala-house-heritage-hires.jpg"
                     alt="Vayaland Architecture in Wayanad"
                     fill
                     sizes="(max-width: 900px) 100vw, 540px"
@@ -280,7 +286,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             {/* Cinematic Visual Stage */}
             <div className="vl-spread-stage">
               <Image
-                src="/assets/villa-infinity-sunset.jpg"
+                src="/assets/kerala-resort-luxury-hires.jpg"
                 alt="The Mistral Horizon Villa & Estate"
                 fill
                 sizes="(max-width: 1024px) 100vw, 800px"
@@ -379,7 +385,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
 
           <div className="vl-cards-composition">
             {displayProperties.slice(0, 4).map((p: any, idx: number) => {
-              const imgUrl = p.images?.[0]?.sizes?.card?.url || p.images?.[0]?.url || p.imageUrl || '/assets/masterplanned-plots.jpg'
+              const imgUrl = p.images?.[0]?.sizes?.card?.url || p.images?.[0]?.url || p.imageUrl || '/assets/kerala-land-plantation-hires.jpg'
               const propertyTag = p.propertyType === 'land'
                 ? t('gallery.tagLand')
                 : p.propertyType === 'commercial'
