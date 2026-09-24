@@ -28,52 +28,9 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
     cmsProperties = []
   }
 
-  // Fallback / curated architectural showcase properties
-  const fallbackProperties = [
-    {
-      id: 'showcase-1',
-      title: locale === 'ml' ? 'ദി മിസ്ട്രൽ ഹൊറൈസൺ വില്ല & എസ്റ്റേറ്റ്' : 'The Mistral Horizon Villa & Estate',
-      propertyType: 'house',
-      location: locale === 'ml' ? 'മേപ്പാടി, വയനാട്' : 'Meppadi, Wayanad',
-      price: '₹ 3.85 Cr',
-      extent: '2.8 Acres · 4 Bed Villa',
-      imageUrl: '/assets/kerala-house-heritage-hires.jpg',
-      aspectRatio: 'landscape',
-    },
-    {
-      id: 'showcase-2',
-      title: locale === 'ml' ? 'ബാണാസുര താഴ്‌വര പ്ലാന്റേഷൻ പ്ലോട്ടുകൾ' : 'Banasura Terraced Plantation Parcels',
-      propertyType: 'land',
-      location: locale === 'ml' ? 'പടിഞ്ഞാറത്തറ, വയനാട്' : 'Padinjarathara, Wayanad',
-      price: '₹ 1.20 Cr',
-      extent: '5.4 Acres · Coffee & Pepper',
-      imageUrl: '/assets/kerala-land-plantation-hires.jpg',
-      aspectRatio: 'portrait',
-    },
-    {
-      id: 'showcase-3',
-      title: locale === 'ml' ? 'ചെമ്പ്ര പീക്ക് ഹൈലാൻഡ് ഹിൽടോപ്പ്' : 'Chembra Highland Hilltop Parcel',
-      propertyType: 'land',
-      location: locale === 'ml' ? 'ചെമ്പ്ര അടിവാരം, വയനാട്' : 'Chembra Foothills, Wayanad',
-      price: '₹ 95 Lakhs',
-      extent: '1.75 Acres · Panoramic Vista',
-      imageUrl: '/assets/kerala-mist-sunrise.jpg',
-      aspectRatio: 'portrait',
-    },
-    {
-      id: 'showcase-4',
-      title: locale === 'ml' ? 'ദി തേക്ക്‌വുഡ് പവിലിയൻ റെസിഡൻസ്' : 'The Teakwood Pavilion Residence',
-      propertyType: 'house',
-      location: locale === 'ml' ? 'പുൽപ്പള്ളി, വയനാട്' : 'Pulpally, Wayanad',
-      price: '₹ 2.45 Cr',
-      extent: '3,400 Sq Ft · Contemporary Kerala',
-      imageUrl: '/assets/modern-timber-eaves.jpg',
-      aspectRatio: 'landscape',
-    },
-  ]
-
-  // Merge CMS properties if available, fallback otherwise
-  const displayProperties = cmsProperties.length >= 3 ? cmsProperties : fallbackProperties
+  // Only show real properties retrieved from Payload CMS backend
+  const displayProperties = cmsProperties
+  const featuredProperty = cmsProperties.find((p: any) => p.featured) || cmsProperties[0]
 
   const waConsultationLink = waLink(
     locale === 'ml'
@@ -391,98 +348,96 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       {/* ========================================================================= */}
       {/* SECTION 3: FEATURED PROJECT MAGAZINE SPREAD                               */}
       {/* ========================================================================= */}
-      <section className="vl-featured-spread">
-        <div className="vl-container">
-          <div className="vl-spread-header">
-            <div className="vl-spread-header-left">
-              <span className="vl-editorial-eyebrow">
-                <span className="vl-eyebrow-line" />
-                <span>{t('home.featuredTag')}</span>
+      {featuredProperty && (
+        <section className="vl-featured-spread">
+          <div className="vl-container">
+            <div className="vl-spread-header">
+              <div className="vl-spread-header-left">
+                <span className="vl-editorial-eyebrow">
+                  <span className="vl-eyebrow-line" />
+                  <span>{t('home.featuredTag')}</span>
+                </span>
+                <h2 className="vl-spread-main-title">{featuredProperty.title}</h2>
+              </div>
+              <span className="vl-spotlight-badge">
+                <span className="vl-badge-dot" />
+                <span>{t('home.featuredBadge')}</span>
               </span>
-              <h2 className="vl-spread-main-title">{t('home.featuredTitle')}</h2>
-            </div>
-            <span className="vl-spotlight-badge">
-              <span className="vl-badge-dot" />
-              <span>{t('home.featuredBadge')}</span>
-            </span>
-          </div>
-
-          <div className="vl-spread-body">
-            {/* Cinematic Visual Stage */}
-            <div className="vl-spread-stage">
-              <Image
-                src="/assets/kerala-resort-luxury-hires.jpg"
-                alt="The Mistral Horizon Villa & Estate"
-                fill
-                sizes="(max-width: 1024px) 100vw, 800px"
-                className="vl-spread-stage-img"
-              />
-              <div className="vl-spread-stage-overlay" />
-              <div className="vl-spread-stage-badge">
-                <span>{t('home.featuredStatus')}</span>
-              </div>
             </div>
 
-            {/* Architectural Data & Story Board */}
-            <div className="vl-spread-dossier">
-              <div className="vl-dossier-meta">
-                <div className="vl-dossier-loc">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-                    <path d="M12 21s-7-6-7-11a7 7 0 0 1 14 0c0 5-7 11-7 11z" />
-                    <circle cx="12" cy="10" r="2.5" />
-                  </svg>
-                  <span>{t('home.featuredLoc')}</span>
-                </div>
-                <span className="vl-dossier-type">{t('home.featuredType')}</span>
-              </div>
-
-              <p className="vl-dossier-desc">
-                {t('home.featuredDesc')}
-              </p>
-
-              {/* Architectural Specifications Grid */}
-              <div className="vl-specs-grid">
-                <div className="vl-spec-item">
-                  <span className="vl-spec-label">Land Extent</span>
-                  <span className="vl-spec-value">2.8 Acres</span>
-                </div>
-                <div className="vl-spec-item">
-                  <span className="vl-spec-label">Elevation</span>
-                  <span className="vl-spec-value">2,600 FT</span>
-                </div>
-                <div className="vl-spec-item">
-                  <span className="vl-spec-label">Pool Feature</span>
-                  <span className="vl-spec-value">25m Infinity Edge</span>
-                </div>
-                <div className="vl-spec-item">
-                  <span className="vl-spec-label">Architecture</span>
-                  <span className="vl-spec-value">Limestone & Teak</span>
+            <div className="vl-spread-body">
+              {/* Cinematic Visual Stage */}
+              <div className="vl-spread-stage">
+                <Image
+                  src={
+                    featuredProperty.images?.[0]?.sizes?.hero?.url ||
+                    featuredProperty.images?.[0]?.url ||
+                    '/assets/kerala-resort-luxury-hires.jpg'
+                  }
+                  alt={featuredProperty.title}
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 800px"
+                  className="vl-spread-stage-img"
+                />
+                <div className="vl-spread-stage-overlay" />
+                <div className="vl-spread-stage-badge">
+                  <span>{featuredProperty.status?.toUpperCase() || t('home.featuredStatus')}</span>
                 </div>
               </div>
 
-              <div className="vl-dossier-actions">
-                <Link href="/projects" className="vl-btn-gold">
-                  <span>{t('home.viewProject')}</span>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </Link>
-                <a
-                  href={`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent('Enquiry for The Mistral Horizon Villa & Estate')}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="vl-btn-ghost-dark"
-                >
-                  <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
-                    <path d="M12 2a10 10 0 0 0-8.6 15l-1.4 5 5.2-1.4A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-3-.2-.3A8 8 0 1 1 12 20zm4.4-5.9c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.5.1-.6.8-.8 1-.3.1-.5 0a6.5 6.5 0 0 1-1.9-1.2 7.3 7.3 0 0 1-1.4-1.7c-.1-.2 0-.4.1-.5l.4-.4.2-.4a.4.4 0 0 0 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4H8a.9.9 0 0 0-.7.3 2.8 2.8 0 0 0-.9 2.1 4.9 4.9 0 0 0 1 2.6 11 11 0 0 0 4.3 3.8c2.3 1 2.3.7 2.7.6a2.5 2.5 0 0 0 1.6-1.1 2 2 0 0 0 .1-1.1c0-.1-.2-.2-.4-.3z" />
-                  </svg>
-                  <span>WhatsApp Enquire</span>
-                </a>
+              {/* Architectural Data & Story Board */}
+              <div className="vl-spread-dossier">
+                <div className="vl-dossier-meta">
+                  <div className="vl-dossier-loc">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+                      <path d="M12 21s-7-6-7-11a7 7 0 0 1 14 0c0 5-7 11-7 11z" />
+                      <circle cx="12" cy="10" r="2.5" />
+                    </svg>
+                    <span>{featuredProperty.location || 'Wayanad, Kerala'}</span>
+                  </div>
+                  <span className="vl-dossier-type">{featuredProperty.propertyType?.toUpperCase()}</span>
+                </div>
+
+                <p className="vl-dossier-desc">
+                  {featuredProperty.description || t('home.featuredDesc')}
+                </p>
+
+                {/* Architectural Specifications Grid */}
+                {Array.isArray(featuredProperty.specs) && featuredProperty.specs.length > 0 && (
+                  <div className="vl-specs-grid">
+                    {featuredProperty.specs.slice(0, 4).map((s: any, i: number) => (
+                      <div key={i} className="vl-spec-item">
+                        <span className="vl-spec-label">Specification {i + 1}</span>
+                        <span className="vl-spec-value">{s.value || s}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                <div className="vl-dossier-actions">
+                  <Link href={`/gallery/${featuredProperty.id}`} className="vl-btn-gold">
+                    <span>{t('home.viewProject')}</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </Link>
+                  <a
+                    href={`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent('Enquiry for ' + featuredProperty.title)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="vl-btn-ghost-dark"
+                  >
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+                      <path d="M12 2a10 10 0 0 0-8.6 15l-1.4 5 5.2-1.4A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-3-.2-.3A8 8 0 1 1 12 20zm4.4-5.9c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.5.1-.6.8-.8 1-.3.1-.5 0a6.5 6.5 0 0 1-1.9-1.2 7.3 7.3 0 0 1-1.4-1.7c-.1-.2 0-.4.1-.5l.4-.4.2-.4a.4.4 0 0 0 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4H8a.9.9 0 0 0-.7.3 2.8 2.8 0 0 0-.9 2.1 4.9 4.9 0 0 0 1 2.6 11 11 0 0 0 4.3 3.8c2.3 1 2.3.7 2.7.6a2.5 2.5 0 0 0 1.6-1.1 2 2 0 0 0 .1-1.1c0-.1-.2-.2-.4-.3z" />
+                    </svg>
+                    <span>WhatsApp Enquire</span>
+                  </a>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* ========================================================================= */}
       {/* SECTION 4: ASYMMETRIC PROPERTY COLLECTION                                 */}
@@ -508,62 +463,86 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             </div>
           </div>
 
-          <div className="vl-cards-composition">
-            {displayProperties.slice(0, 4).map((p: any, idx: number) => {
-              const imgUrl = p.images?.[0]?.sizes?.card?.url || p.images?.[0]?.url || p.imageUrl || '/assets/kerala-land-plantation-hires.jpg'
-              const propertyTag = p.propertyType === 'land'
-                ? t('gallery.tagLand')
-                : p.propertyType === 'commercial'
-                ? t('gallery.tagCommercial')
-                : t('gallery.tagHouse')
-              const isLargeCard = idx === 0
+          {displayProperties.length > 0 ? (
+            <div className="vl-cards-composition">
+              {displayProperties.slice(0, 4).map((p: any, idx: number) => {
+                const imgUrl = p.images?.[0]?.sizes?.card?.url || p.images?.[0]?.url || p.imageUrl || '/assets/kerala-land-plantation-hires.jpg'
+                const propertyTag = p.propertyType === 'land'
+                  ? t('gallery.tagLand')
+                  : p.propertyType === 'commercial'
+                  ? t('gallery.tagCommercial')
+                  : t('gallery.tagHouse')
+                const isLargeCard = idx === 0
 
-              return (
-                <article
-                  key={p.id || idx}
-                  className={`vl-prop-card ${isLargeCard ? 'vl-prop-card-large' : 'vl-prop-card-regular'}`}
-                >
-                  <Link href="/projects" className="vl-prop-card-link" aria-label={p.title}>
-                    <div className="vl-prop-media-box">
-                      <Image
-                        src={imgUrl}
-                        alt={p.title}
-                        fill
-                        sizes={isLargeCard ? '(max-width: 768px) 100vw, 65vw' : '(max-width: 768px) 100vw, 33vw'}
-                        className="vl-prop-card-img"
-                      />
-                      <div className="vl-prop-scrim" />
-                      <span className="vl-prop-type-badge">{propertyTag}</span>
-                    </div>
-
-                    <div className="vl-prop-info-box">
-                      <div className="vl-prop-loc-row">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
-                          <path d="M12 21s-7-6-7-11a7 7 0 0 1 14 0c0 5-7 11-7 11z" />
-                          <circle cx="12" cy="10" r="2.5" />
-                        </svg>
-                        <span>{p.location || 'Wayanad, Kerala'}</span>
+                return (
+                  <article
+                    key={p.id || idx}
+                    className={`vl-prop-card ${isLargeCard ? 'vl-prop-card-large' : 'vl-prop-card-regular'}`}
+                  >
+                    <Link href={`/gallery/${p.id}`} className="vl-prop-card-link" aria-label={p.title}>
+                      <div className="vl-prop-media-box">
+                        <Image
+                          src={imgUrl}
+                          alt={p.title}
+                          fill
+                          sizes={isLargeCard ? '(max-width: 768px) 100vw, 65vw' : '(max-width: 768px) 100vw, 33vw'}
+                          className="vl-prop-card-img"
+                        />
+                        <div className="vl-prop-scrim" />
+                        <span className="vl-prop-type-badge">{propertyTag}</span>
                       </div>
 
-                      <h3 className="vl-prop-title">{p.title}</h3>
-
-                      <div className="vl-prop-meta-footer">
-                        <div className="vl-prop-price-tag">
-                          {p.price || (locale === 'ml' ? 'വില വിവരങ്ങൾക്ക് ബന്ധപ്പെടുക' : 'Price on Enquiry')}
-                        </div>
-                        {p.extent && <span className="vl-prop-extent">{p.extent}</span>}
-                        <div className="vl-prop-arrow-btn">
-                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                            <path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" />
+                      <div className="vl-prop-info-box">
+                        <div className="vl-prop-loc-row">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
+                            <path d="M12 21s-7-6-7-11a7 7 0 0 1 14 0c0 5-7 11-7 11z" />
+                            <circle cx="12" cy="10" r="2.5" />
                           </svg>
+                          <span>{p.location || 'Wayanad, Kerala'}</span>
+                        </div>
+
+                        <h3 className="vl-prop-title">{p.title}</h3>
+
+                        <div className="vl-prop-meta-footer">
+                          <div className="vl-prop-price-tag">
+                            {p.price || (locale === 'ml' ? 'വില വിവരങ്ങൾക്ക് ബന്ധപ്പെടുക' : 'Price on Enquiry')}
+                          </div>
+                          {p.extent && <span className="vl-prop-extent">{p.extent}</span>}
+                          <div className="vl-prop-arrow-btn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                              <path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" />
+                            </svg>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </Link>
-                </article>
-              )
-            })}
-          </div>
+                    </Link>
+                  </article>
+                )
+              })}
+            </div>
+          ) : (
+            <div className="vl-cat-empty-state" style={{ padding: '60px 20px', textAlign: 'center' }}>
+              <h3 className="vl-cat-empty-title">
+                {locale === 'ml' ? 'പുതിയ പ്രോപ്പർട്ടികൾ ഉടൻ ലഭ്യമാകും' : 'Curated Properties Coming Soon'}
+              </h3>
+              <p className="vl-cat-empty-desc" style={{ maxWidth: '520px', margin: '12px auto 24px', opacity: 0.8 }}>
+                {locale === 'ml'
+                  ? 'ഞങ്ങളുടെ പുതിയ പ്രോപ്പർട്ടി ലിസ്റ്റിംഗുകൾ തയ്യാറായി വരുന്നു. നേരിട്ട് സംസാരിക്കാൻ വാട്സാപ്പ് ചെയ്യുക.'
+                  : 'New verified architectural listings and land holdings are currently being prepared. Enquire directly on WhatsApp to learn about off-market opportunities.'}
+              </p>
+              <a
+                href={waConsultationLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="vl-btn-whatsapp-editorial"
+              >
+                <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+                  <path d="M12 2a10 10 0 0 0-8.6 15l-1.4 5 5.2-1.4A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-3-.2-.3A8 8 0 1 1 12 20zm4.4-5.9c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.5.1-.6.8-.8 1-.3.1-.5 0a6.5 6.5 0 0 1-1.9-1.2 7.3 7.3 0 0 1-1.4-1.7c-.1-.2 0-.4.1-.5l.4-.4.2-.4a.4.4 0 0 0 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4H8a.9.9 0 0 0-.7.3 2.8 2.8 0 0 0-.9 2.1 4.9 4.9 0 0 0 1 2.6 11 11 0 0 0 4.3 3.8c2.3 1 2.3.7 2.7.6a2.5 2.5 0 0 0 1.6-1.1 2 2 0 0 0 .1-1.1c0-.1-.2-.2-.4-.3z" />
+                </svg>
+                <span>{locale === 'ml' ? 'വാട്സാപ്പിൽ സംസാരിക്കാം' : 'WhatsApp Consultation'}</span>
+              </a>
+            </div>
+          )}
 
           <div className="vl-collection-mobile-cta">
             <Link href="/projects" className="vl-btn-outline">
