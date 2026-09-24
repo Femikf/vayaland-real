@@ -65,7 +65,7 @@ export default async function ProjectsPage({
           specs: Array.isArray(d.specs)
             ? d.specs.map((s: any) => s.value).filter(Boolean)
             : [],
-          imageUrl: firstImg || '/assets/kerala-land-plantation-hires.jpg',
+          imageUrl: firstImg || '/assets/no-image-preview.svg',
           featured: Boolean(d.featured),
         }
       })

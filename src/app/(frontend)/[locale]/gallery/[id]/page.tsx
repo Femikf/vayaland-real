@@ -64,7 +64,7 @@ export default async function PropertyDetailPage({
     const fallbackUrl =
       property.imageUrl ||
       property.featuredImage?.url ||
-      '/assets/kerala-land-plantation-hires.jpg'
+      '/assets/no-image-preview.svg'
     galleryImages = [
       {
         url: fallbackUrl,

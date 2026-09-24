@@ -57,6 +57,23 @@ export const Properties: CollectionConfig = {
         condition: (data) => data.propertyType === 'land' || data.propertyType === 'commercial' || data.propertyType === 'resort',
       },
     },
-    { name: 'featured', type: 'checkbox', label: 'Show on homepage', defaultValue: false },
+    {
+      name: 'featured',
+      type: 'checkbox',
+      label: 'Show on Homepage (Collection Grid)',
+      defaultValue: false,
+      admin: {
+        description: 'Tick this to display this property in the Homepage Collection section.',
+      },
+    },
+    {
+      name: 'spotlight',
+      type: 'checkbox',
+      label: 'Spotlight on Homepage (Featured Magazine Section)',
+      defaultValue: false,
+      admin: {
+        description: 'Tick this to feature this property as the main magazine spread on the homepage.',
+      },
+    },
   ],
 }

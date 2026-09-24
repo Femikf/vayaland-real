@@ -142,7 +142,7 @@ export default async function ServicesPage({
     exploreHref: '/projects',
     enquireLabel: t('s1Enquire'),
     enquireMessage: `Hello Vayaland, I am enquiring about your ${s.name} service.`,
-    image: s.image?.sizes?.card?.url || s.image?.url || '/assets/architecture-mood.jpg',
+    image: s.image?.sizes?.card?.url || s.image?.url || '/assets/no-image-preview.svg',
     imageAlt: s.name,
     coordsTag: 'Pulpally · Wayanad, Kerala',
   }))

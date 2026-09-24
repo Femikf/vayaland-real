@@ -13,24 +13,43 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
   const t = await getTranslations()
 
   let cmsProperties: any[] = []
+  let cmsHeroSlides: any[] = []
   try {
     const payload = await getPayload({ config })
-    const { docs } = await payload.find({
-      collection: 'properties',
-      locale: locale as 'en' | 'ml',
-      depth: 1,
-      limit: 6,
-      sort: '-createdAt',
-    })
-    cmsProperties = docs || []
+    const [propsRes, slidesRes] = await Promise.all([
+      payload.find({
+        collection: 'properties',
+        locale: locale as 'en' | 'ml',
+        depth: 1,
+        limit: 50,
+        sort: '-createdAt',
+      }),
+      payload.find({
+        collection: 'hero-slides',
+        locale: locale as 'en' | 'ml',
+        depth: 1,
+        where: { active: { equals: true } },
+        sort: 'order',
+        limit: 20,
+      }),
+    ])
+    cmsProperties = propsRes.docs || []
+    cmsHeroSlides = slidesRes.docs || []
   } catch {
     // Gracefully handle database or CMS disconnect in static/offline scenarios
     cmsProperties = []
+    cmsHeroSlides = []
   }
 
-  // Only show real properties retrieved from Payload CMS backend
-  const displayProperties = cmsProperties
-  const featuredProperty = cmsProperties.find((p: any) => p.featured) || cmsProperties[0]
+  // Section 3: Spotlight property (prioritizing spotlight toggle, then featured, then latest)
+  const spotlightProperty =
+    cmsProperties.find((p: any) => Boolean(p.spotlight)) ||
+    cmsProperties.find((p: any) => Boolean(p.featured)) ||
+    (cmsProperties.length > 0 ? cmsProperties[0] : null)
+
+  // Section 4: Homepage curated collection grid (strictly prioritize properties marked "featured" / Show on Homepage)
+  const featuredOnly = cmsProperties.filter((p: any) => Boolean(p.featured))
+  const displayProperties = featuredOnly.length > 0 ? featuredOnly : cmsProperties
 
   const waConsultationLink = waLink(
     locale === 'ml'
@@ -38,8 +57,8 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       : 'Hello Vayaland, I would like to enquire about your land parcels and architectural estates in Wayanad.'
   )
 
-  // 5-Slide Architectural Running Hero Showcase
-  const heroSlides = [
+  // 5-Slide Architectural Running Hero Showcase (Fallback if no custom slides added in CMS)
+  const defaultHeroSlides = [
     {
       id: 'hero-1-brand',
       image: '/assets/hero-cinematic.jpg',
@@ -91,6 +110,21 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       ctaLink: '/projects?category=resort',
     },
   ]
+
+  // Dynamic slides from Payload CMS HeroSlides collection with fallback
+  const activeHeroSlides =
+    cmsHeroSlides.length > 0
+      ? cmsHeroSlides.map((slide: any) => ({
+          id: String(slide.id),
+          image: slide.image?.sizes?.hero?.url || slide.image?.url || '/assets/hero-cinematic.jpg',
+          eyebrow: slide.eyebrow || (locale === 'ml' ? 'വയലാൻഡ് · ദി റിയൽ വയനാട്' : 'VAYALAND · THE REAL WAYANAD'),
+          serviceBadge: slide.eyebrow || (locale === 'ml' ? 'പ്രീമിയം വയനാട് റിയൽ എസ്റ്റേറ്റ്' : 'PREMIUM ARCHITECTURAL ESTATES'),
+          title: slide.title,
+          subtitle: slide.subtitle || '',
+          ctaLabel: slide.ctaLabel || (locale === 'ml' ? 'കൂടുതൽ കാണുക' : 'Explore Properties'),
+          ctaLink: slide.ctaLink || '/projects',
+        }))
+      : defaultHeroSlides
 
   const keralaGalleryItems = [
     {
@@ -148,7 +182,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       {/* ========================================================================= */}
       {/* SECTION 1: 5-SLIDE RUNNING EDITORIAL HERO SLIDER                          */}
       {/* ========================================================================= */}
-      <HeroSlider slides={heroSlides} locale={locale} />
+      <HeroSlider slides={activeHeroSlides} locale={locale} />
 
       {/* ========================================================================= */}
       {/* SECTION 2: BRAND INTRODUCTION & ARCHITECTURAL PHILOSOPHY                  */}
@@ -348,7 +382,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       {/* ========================================================================= */}
       {/* SECTION 3: FEATURED PROJECT MAGAZINE SPREAD                               */}
       {/* ========================================================================= */}
-      {featuredProperty && (
+      {spotlightProperty && (
         <section className="vl-featured-spread">
           <div className="vl-container">
             <div className="vl-spread-header">
@@ -357,7 +391,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                   <span className="vl-eyebrow-line" />
                   <span>{t('home.featuredTag')}</span>
                 </span>
-                <h2 className="vl-spread-main-title">{featuredProperty.title}</h2>
+                <h2 className="vl-spread-main-title">{spotlightProperty.title}</h2>
               </div>
               <span className="vl-spotlight-badge">
                 <span className="vl-badge-dot" />
@@ -370,18 +404,19 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
               <div className="vl-spread-stage">
                 <Image
                   src={
-                    featuredProperty.images?.[0]?.sizes?.hero?.url ||
-                    featuredProperty.images?.[0]?.url ||
-                    '/assets/kerala-resort-luxury-hires.jpg'
+                    spotlightProperty.images?.[0]?.sizes?.hero?.url ||
+                    spotlightProperty.images?.[0]?.url ||
+                    spotlightProperty.imageUrl ||
+                    '/assets/no-image-preview.svg'
                   }
-                  alt={featuredProperty.title}
+                  alt={spotlightProperty.title}
                   fill
                   sizes="(max-width: 1024px) 100vw, 800px"
                   className="vl-spread-stage-img"
                 />
                 <div className="vl-spread-stage-overlay" />
                 <div className="vl-spread-stage-badge">
-                  <span>{featuredProperty.status?.toUpperCase() || t('home.featuredStatus')}</span>
+                  <span>{spotlightProperty.status?.toUpperCase() || t('home.featuredStatus')}</span>
                 </div>
               </div>
 
@@ -393,19 +428,19 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                       <path d="M12 21s-7-6-7-11a7 7 0 0 1 14 0c0 5-7 11-7 11z" />
                       <circle cx="12" cy="10" r="2.5" />
                     </svg>
-                    <span>{featuredProperty.location || 'Wayanad, Kerala'}</span>
+                    <span>{spotlightProperty.location || 'Wayanad, Kerala'}</span>
                   </div>
-                  <span className="vl-dossier-type">{featuredProperty.propertyType?.toUpperCase()}</span>
+                  <span className="vl-dossier-type">{spotlightProperty.propertyType?.toUpperCase()}</span>
                 </div>
 
                 <p className="vl-dossier-desc">
-                  {featuredProperty.description || t('home.featuredDesc')}
+                  {spotlightProperty.description || t('home.featuredDesc')}
                 </p>
 
                 {/* Architectural Specifications Grid */}
-                {Array.isArray(featuredProperty.specs) && featuredProperty.specs.length > 0 && (
+                {Array.isArray(spotlightProperty.specs) && spotlightProperty.specs.length > 0 && (
                   <div className="vl-specs-grid">
-                    {featuredProperty.specs.slice(0, 4).map((s: any, i: number) => (
+                    {spotlightProperty.specs.slice(0, 4).map((s: any, i: number) => (
                       <div key={i} className="vl-spec-item">
                         <span className="vl-spec-label">Specification {i + 1}</span>
                         <span className="vl-spec-value">{s.value || s}</span>
@@ -415,14 +450,14 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                 )}
 
                 <div className="vl-dossier-actions">
-                  <Link href={`/gallery/${featuredProperty.id}`} className="vl-btn-gold">
+                  <Link href={`/gallery/${spotlightProperty.id}`} className="vl-btn-gold">
                     <span>{t('home.viewProject')}</span>
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                       <path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                   </Link>
                   <a
-                    href={`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent('Enquiry for ' + featuredProperty.title)}`}
+                    href={`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent('Enquiry for ' + spotlightProperty.title)}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="vl-btn-ghost-dark"
@@ -466,7 +501,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           {displayProperties.length > 0 ? (
             <div className="vl-cards-composition">
               {displayProperties.slice(0, 4).map((p: any, idx: number) => {
-                const imgUrl = p.images?.[0]?.sizes?.card?.url || p.images?.[0]?.url || p.imageUrl || '/assets/kerala-land-plantation-hires.jpg'
+                const imgUrl = p.images?.[0]?.sizes?.card?.url || p.images?.[0]?.url || p.imageUrl || '/assets/no-image-preview.svg'
                 const propertyTag = p.propertyType === 'land'
                   ? t('gallery.tagLand')
                   : p.propertyType === 'commercial'

@@ -29,6 +29,9 @@ export default buildConfig({
         Logo: '@/components/admin/AdminLogo#AdminLogo',
         Icon: '@/components/admin/AdminIcon#AdminIcon',
       },
+      actions: [
+        '@/components/admin/PostSaveRedirect#PostSaveRedirect',
+      ],
     },
   },
 

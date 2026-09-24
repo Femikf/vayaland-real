@@ -1,0 +1,197 @@
+/* ========================================================================= */
+/* VAYALAND PAYLOAD CMS ADMIN CUSTOM STYLES                                   */
+/* 1. High-Contrast, Unmissable Error Alerts & Form Validation Toasts        */
+/* 2. Responsive Table & Mobile Layout Enhancements                          */
+/* ========================================================================= */
+
+// Global brand variables for admin
+:root {
+  --vl-admin-teal: #085056;
+  --vl-admin-teal-light: #0d737b;
+  --vl-admin-gold: #c5a059;
+  --vl-admin-error-bg: #991b1b;
+  --vl-admin-error-border: #dc2626;
+  --vl-admin-error-text: #ffffff;
+}
+
+/* ========================================================================= */
+/* 1. STICKY & HIGH-CONTRAST TOAST NOTIFICATIONS (ERROR / WARNING / SUCCESS)  */
+/* ========================================================================= */
+
+.payload-toast-container,
+[data-sonner-toaster] {
+  z-index: 99999 !important;
+  top: 1rem !important;
+  right: 1rem !important;
+
+  @media (max-width: 768px) {
+    left: 0.5rem !important;
+    right: 0.5rem !important;
+    top: 0.5rem !important;
+    width: auto !important;
+  }
+}
+
+.payload-toast-item,
+[data-sonner-toast] {
+  border-radius: 6px !important;
+  font-size: 0.925rem !important;
+  font-weight: 500 !important;
+  line-height: 1.45 !important;
+  padding: 0.9rem 1.15rem !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.35), 0 8px 10px -6px rgba(0, 0, 0, 0.2) !important;
+  transition: all 0.2s ease-in-out !important;
+
+  // Prominent ERROR alert (e.g., Image size > 10MB, submission failed)
+  &.toast-error,
+  &[data-type='error'] {
+    background: #991b1b !important;
+    background-color: #991b1b !important;
+    color: #ffffff !important;
+    border: 2px solid #ef4444 !important;
+
+    .toast-title,
+    .toast-content,
+    [data-title],
+    [data-description] {
+      color: #ffffff !important;
+      font-weight: 600 !important;
+    }
+
+    svg {
+      color: #ffffff !important;
+      stroke: #ffffff !important;
+    }
+
+    button {
+      color: #fecaca !important;
+      &:hover {
+        color: #ffffff !important;
+      }
+    }
+  }
+
+  // Clear WARNING alert
+  &.toast-warning,
+  &[data-type='warning'] {
+    background: #92400e !important;
+    background-color: #92400e !important;
+    color: #ffffff !important;
+    border: 2px solid #f59e0b !important;
+
+    .toast-title,
+    .toast-content,
+    [data-title],
+    [data-description] {
+      color: #ffffff !important;
+      font-weight: 600 !important;
+    }
+
+    svg {
+      color: #ffffff !important;
+    }
+  }
+
+  // Polished SUCCESS alert
+  &.toast-success,
+  &[data-type='success'] {
+    background: #085056 !important;
+    background-color: #085056 !important;
+    color: #ffffff !important;
+    border: 2px solid #0d737b !important;
+
+    .toast-title,
+    .toast-content,
+    [data-title],
+    [data-description] {
+      color: #ffffff !important;
+      font-weight: 600 !important;
+    }
+
+    svg {
+      color: #a7f3d0 !important;
+    }
+  }
+}
+
+/* ========================================================================= */
+/* 2. FORM FIELD VALIDATION ERROR HIGHLIGHTING                               */
+/* ========================================================================= */
+
+.field-has-error input,
+.field-has-error textarea,
+.field-has-error select,
+.render-field--has-error input,
+.render-field--has-error textarea {
+  border-color: #ef4444 !important;
+  background-color: rgba(239, 68, 68, 0.05) !important;
+  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.25) !important;
+}
+
+.error-pill {
+  background-color: #dc2626 !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  border-radius: 4px !important;
+  padding: 2px 8px !important;
+  box-shadow: 0 1px 3px rgba(220, 38, 38, 0.3) !important;
+}
+
+.field-error,
+.field-description--error {
+  color: #ef4444 !important;
+  font-weight: 600 !important;
+  font-size: 0.85rem !important;
+  margin-top: 4px !important;
+}
+
+/* ========================================================================= */
+/* 3. MOBILE RESPONSIVENESS FOR ADMIN PANEL                                  */
+/* ========================================================================= */
+
+@media (max-width: 768px) {
+  // Allow horizontal scrolling on collection data tables
+  .collection-list__table,
+  .table,
+  .table-wrap {
+    display: block !important;
+    width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    margin-bottom: 1.5rem !important;
+  }
+
+  // Ensure table headers and cells retain readable proportions on mobile
+  table {
+    min-width: 600px !important;
+  }
+
+  // Expand mobile touch targets to minimum 44px
+  button.btn,
+  a.btn,
+  .btn--size-small,
+  .btn--size-medium {
+    min-height: 42px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  // Document action bar: comfortable sticky positioning at bottom on mobile
+  .doc-controls,
+  .document-controls {
+    padding: 0.75rem 1rem !important;
+  }
+
+  // Admin Header adjustments
+  .app-header {
+    padding: 0.5rem 0.75rem !important;
+  }
+
+  // Prevent horizontal overflow
+  body, html {
+    overflow-x: hidden !important;
+  }
+}
